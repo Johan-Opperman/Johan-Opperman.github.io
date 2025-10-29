@@ -147,13 +147,24 @@ body, html {
   width: 28px;
   height: 28px;
 }
-/* Contact section layout */
+
+/* Contact section spacing and layout */
+.contact-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  margin-top: 150px; /* moves the whole section lower */
+  gap: 20px; /* space between heading, paragraph, and links */
+  text-align: center;
+}
+
 .contact-links {
   display: flex;
-  flex-direction: column; /* stack vertically */
+  flex-direction: column; /* vertical stack */
   align-items: center;
-  margin-top: 40px; /* space from header/logo */
-  gap: 20px; /* space between each link */
+  gap: 25px; /* space between each contact link */
+  margin-top: 30px; /* extra space above links */
 }
 
 .contact-item {
@@ -161,7 +172,7 @@ body, html {
   align-items: center;
   text-decoration: none;
   color: white;
-  font-size: 18px;
+  font-size: 20px;
   transition: transform 0.3s, opacity 0.3s;
 }
 
@@ -175,5 +186,4 @@ body, html {
   transform: scale(1.05);
   opacity: 0.8;
 }
-
 
