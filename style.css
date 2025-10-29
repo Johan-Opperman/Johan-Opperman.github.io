@@ -200,7 +200,8 @@ body, html {
 /* Tooltip container */
 .tooltip {
   position: relative;
-  display: inline-block;
+  display: inline-block; /* ensures the tooltip is treated as a block for positioning */
+  width: fit-content;    /* so it doesn’t stretch the flex container */
 }
 
 /* Tooltip text */
@@ -214,7 +215,7 @@ body, html {
   border-radius: 4px;
   position: absolute;
   z-index: 1;
-  bottom: 120%; /* positions above the link */
+  bottom: 120%; /* positions above the Email link */
   left: 50%;
   transform: translateX(-50%);
   opacity: 0;
@@ -229,3 +230,9 @@ body, html {
   opacity: 1;
 }
 
+/* Prevent Email link from stretching */
+.tooltip-link {
+  display: flex;
+  align-items: center;
+  width: auto; /* lets it size naturally */
+}
