@@ -18,36 +18,30 @@
   </div>
 
   <!-- Contact Section -->
-  <div class="hero">
-    <div class="hero-content">
-      <h1>Contact Me</h1>
-      <p>Feel free to reach out or connect with me below.</p>
+ <div class="contact-section">
+  <h1>Contact Me</h1>
+  <p>Feel free to reach out or connect with me below.</p>
 
-      <div class="contact-links">
-        <a href="https://github.com/Johan-Opperman" target="_blank">
-          <img src="https://img.icons8.com/ios-filled/50/ffffff/github.png" alt="GitHub Icon" />
-          GitHub
-        </a>
-        <a href="https://www.linkedin.com/in/johan-opperman/" target="_blank">
-          <img src="https://img.icons8.com/ios-filled/50/ffffff/linkedin.png" alt="LinkedIn Icon" />
-          LinkedIn
-        </a>
-        <a href="mailto:johanopperman100@gmail.com">
-          <img src="https://img.icons8.com/ios-filled/50/ffffff/new-post.png" alt="Email Icon" />
-          Email Me
-        </a>
-         <p class="email-note">Clicking "Email Me" will open your default email client.</p>
-      </div>
+  <div class="contact-links">
+    <!-- GitHub -->
+    <a href="https://github.com/Johan-Opperman" target="_blank" class="contact-item">
+      <img src="https://img.icons8.com/ios-filled/50/ffffff/github.png" alt="GitHub Icon" />
+      GitHub
+    </a>
+
+    <!-- LinkedIn -->
+    <a href="https://www.linkedin.com/in/johan-opperman/" target="_blank" class="contact-item">
+      <img src="https://img.icons8.com/ios-filled/50/ffffff/linkedin.png" alt="LinkedIn Icon" />
+      LinkedIn
+    </a>
+
+    <!-- Email with tooltip -->
+    <div class="tooltip">
+      <a href="mailto:johanopperman100@gmail.com" class="contact-item">
+        <img src="https://img.icons8.com/ios-filled/50/ffffff/new-post.png" alt="Email Icon" />
+        Email Me
+      </a>
+      <span class="tooltiptext">Clicking "Email Me" will open your default email client.</span>
     </div>
-
-    <button class="explore-button" onclick="toggleSidebar()">☰ Menu</button>
   </div>
-
-  <script>
-    function toggleSidebar() {
-      document.getElementById("sidebar").classList.toggle("active");
-    }
-  </script>
-
-</body>
-</html>
+</div>
