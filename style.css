@@ -189,3 +189,11 @@ body, html {
   opacity: 0.8;
 }
 
+.email-note {
+  font-size: 14px;
+  color: #cccccc; /* lighter color for subtle note */
+  margin-top: 5px;
+  text-align: center;
+}
+
+
