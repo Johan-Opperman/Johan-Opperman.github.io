@@ -8,11 +8,21 @@
 </head>
 <body>
 
-  <header>
-    <h1>About Me</h1>
-  </header>
+  <!-- Sidebar -->
+  <div id="sidebar" class="sidebar">
+    <a href="javascript:void(0)" class="closebtn" onclick="toggleSidebar()">&times;</a>
+    <a href="index.html">Home</a>
+    <a href="about.html" class="active">About</a>
+    <a href="cv.html">CV</a>
+    <a href="contact.html">Contact</a>
+  </div>
 
+  <!-- Toggle Button -->
+  <button class="explore-button" onclick="toggleSidebar()">☰ Menu</button>
+
+  <!-- About Section -->
   <section class="about-content">
+    <h1>About Me</h1>
     <p>Hello! I'm Johan, a tech enthusiast, developer, and creator. I love working on Raspberry Pi projects, coding in Python and Java, and exploring new technologies. 🚀</p>
 
     <p>In my free time, I enjoy gaming, building AI projects, and sharing my knowledge with others.</p>
@@ -27,6 +37,13 @@
   </section>
 
   <a href="index.html">← Back to Home</a>
+
+  <!-- Sidebar Toggle Script -->
+  <script>
+    function toggleSidebar() {
+      document.getElementById("sidebar").classList.toggle("active");
+    }
+  </script>
 
 </body>
 </html>
