@@ -167,9 +167,17 @@ body, html {
   margin-top: 50px; /* extra space above links */
 }
 
-.contact-item {
-  margin-top: 10px; /* adds extra spacing for each icon */
+/* Contact links container */
+.contact-links {
+  display: flex;
+  flex-direction: column; /* stack links vertically */
+  align-items: center;
+  gap: 25px; /* space between each link */
+  margin-top: 30px;
 }
+
+/* Each contact link */
+.contact-item {
   display: flex;
   align-items: center;
   text-decoration: none;
@@ -181,7 +189,7 @@ body, html {
 .contact-item img {
   width: 40px;
   height: 40px;
-  margin-right: 12px; /* space between icon and text */
+  margin-right: 12px;
 }
 
 .contact-item:hover {
@@ -189,11 +197,35 @@ body, html {
   opacity: 0.8;
 }
 
-.email-note {
-  font-size: 14px;
-  color: #cccccc; /* lighter color for subtle note */
-  margin-top: 5px;
-  text-align: center;
+/* Tooltip container */
+.tooltip {
+  position: relative;
+  display: inline-block;
 }
 
+/* Tooltip text */
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 220px;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  padding: 6px 8px;
+  border-radius: 4px;
+  position: absolute;
+  z-index: 1;
+  bottom: 120%; /* positions above the link */
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.3s;
+  font-size: 14px;
+  pointer-events: none;
+}
+
+/* Show tooltip on hover */
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
 
