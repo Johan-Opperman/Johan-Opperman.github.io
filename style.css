@@ -159,14 +159,6 @@ body, html {
   text-align: center;
 }
 
-.contact-links {
-  display: flex;
-  flex-direction: column; /* vertical stack */
-  align-items: center;
-  gap: 25px; /* space between each contact link */
-  margin-top: 50px; /* extra space above links */
-}
-
 /* Contact links container */
 .contact-links {
   display: flex;
@@ -174,6 +166,13 @@ body, html {
   align-items: center;
   gap: 25px; /* space between each link */
   margin-top: 30px;
+}
+
+/* Each contact link wrapper */
+.contact-item-wrapper {
+  display: flex;
+  justify-content: center;
+  width: 100%;
 }
 
 /* Each contact link */
@@ -200,8 +199,7 @@ body, html {
 /* Tooltip container */
 .tooltip {
   position: relative;
-  display: inline-block; /* ensures the tooltip is treated as a block for positioning */
-  width: fit-content;    /* so it doesn’t stretch the flex container */
+  display: inline-block;
 }
 
 /* Tooltip text */
@@ -228,11 +226,4 @@ body, html {
 .tooltip:hover .tooltiptext {
   visibility: visible;
   opacity: 1;
-}
-
-/* Prevent Email link from stretching */
-.tooltip-link {
-  display: flex;
-  align-items: center;
-  width: auto; /* lets it size naturally */
 }
