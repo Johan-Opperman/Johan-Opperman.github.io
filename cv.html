@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Johan Opperman - CV</title>
+  <link rel="stylesheet" href="style.css" />
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="21fd8100-6341-4d18-8f00-1d67c7ad059d.png">
+</head>
+<body>
+
+  <!-- Sidebar -->
+  <div id="sidebar" class="sidebar">
+    <a href="javascript:void(0)" class="closebtn" onclick="toggleSidebar()">&times;</a>
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="cv.html">CV</a>
+    <a href="contact.html">Contact</a>
+  </div>
+
+  <!-- CV Section -->
+  <div class="cv-container">
+    <h1>Curriculum Vitae</h1>
+    <p>You can view or download my CV using the buttons below:</p>
+
+    <div class="cv-buttons">
+      <a href="Johan_Opperman_CV.pdf" target="_blank" class="btn">View CV</a>
+      <a href="Johan_Opperman_CV.pdf" download class="btn">Download CV</a>
+    </div>
+  </div>
+
+  <script>
+    function toggleSidebar() {
+      document.getElementById("sidebar").classList.toggle("active");
+    }
+  </script>
+
+</body>
+</html>
