@@ -13,12 +13,16 @@
     <a href="javascript:void(0)" class="closebtn" onclick="toggleSidebar()">&times;</a>
     <a href="about.html">About</a>
 
-    <!-- Projects submenu toggle -->
-    <a href="javascript:void(0)" class="submenu-toggle" onclick="toggleSubmenu()">Projects &#9662;</a>
-    <div id="projects-submenu" class="submenu">
+    <!-- Projects slide-out panel toggle -->
+    <a href="javascript:void(0)" class="submenu-toggle" onclick="openProjectsPanel()">Projects &#9654;</a>
+
+    <!-- Sliding panel for Projects -->
+    <div id="projects-panel" class="projects-panel">
+      <a href="javascript:void(0)" class="close-projects" onclick="closeProjectsPanel()">&times; Close</a>
       <a href="https://github.com/Oppie100/Raspberry-Pi-Pico-Projects" target="_blank" rel="noopener noreferrer">
         Raspberry Pi Pico Projects
       </a>
+      <!-- Add more project links here -->
     </div>
 
     <a href="cv.html">CV</a>
@@ -34,10 +38,10 @@
     <button class="explore-button" onclick="toggleSidebar()">☰ Explore</button>
   </div>
 
-  <!-- WhatsApp Button -->
-  <a href="https://wa.me/27799231887?text=Hi%20Johan!%20I%20have%20a%20question%20about%20your%20CV."
-     target="_blank"
-     class="whatsapp-button"
+  <!-- WhatsApp Floating Button -->
+  <a href="https://wa.me/27799231887?text=Hi%20Johan!%20I%20have%20a%20question%20about%20your%20CV." 
+     target="_blank" 
+     class="whatsapp-button" 
      title="Chat with me on WhatsApp">
     <img src="https://img.icons8.com/ios-filled/50/ffffff/whatsapp--v1.png" alt="WhatsApp Icon" />
   </a>
@@ -47,9 +51,12 @@
       document.getElementById("sidebar").classList.toggle("active");
     }
 
-    function toggleSubmenu() {
-      const submenu = document.getElementById("projects-submenu");
-      submenu.classList.toggle("open");
+    function openProjectsPanel() {
+      document.getElementById('projects-panel').classList.add('open');
+    }
+
+    function closeProjectsPanel() {
+      document.getElementById('projects-panel').classList.remove('open');
     }
   </script>
 
