@@ -1,0 +1,149 @@
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body, html {
+  height: 100%;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #000;
+  color: #00f2fe;
+  overflow-x: hidden;
+}
+
+/* Hero Section */
+.hero {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 0 1rem;
+}
+
+.hero h1 {
+  font-size: 4rem;
+  margin-bottom: 0.5rem;
+  letter-spacing: 3px;
+  color: #00f2fe;
+  text-shadow: 0 0 5px #00f2fe;
+}
+
+.hero p {
+  font-size: 1.5rem;
+  font-weight: 300;
+  color: #0ff;
+  text-shadow: 0 0 4px #0ff;
+}
+
+/* Explore Button */
+.explore-button {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: linear-gradient(135deg, #00f2fe, #0061fe);
+  color: white;
+  padding: 12px 22px;
+  font-size: 16px;
+  font-weight: 700;
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 0 15px #00f2fe;
+  cursor: pointer;
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+  z-index: 1001;
+}
+
+.explore-button:hover {
+  background: linear-gradient(135deg, #0061fe, #00f2fe);
+  box-shadow: 0 0 25px #00f2fe;
+}
+
+/* Sidebar */
+.sidebar {
+  position: fixed;
+  top: 0;
+  right: -280px;
+  width: 280px;
+  height: 100%;
+  background: #121212;
+  box-shadow: -4px 0 15px rgba(0, 242, 254, 0.3);
+  padding-top: 70px;
+  display: flex;
+  flex-direction: column;
+  transition: right 0.4s ease;
+  z-index: 1000;
+}
+
+.sidebar.active {
+  right: 0;
+}
+
+.sidebar .closebtn {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-size: 32px;
+  color: #00f2fe;
+  cursor: pointer;
+}
+
+.sidebar a {
+  padding: 15px 30px;
+  font-size: 18px;
+  color: #00f2fe;
+  text-decoration: none;
+  display: block;
+  font-weight: 600;
+}
+
+/* Submenu */
+.submenu {
+  display: none;
+  flex-direction: column;
+  margin-left: 30px;
+}
+
+.submenu.open {
+  display: flex;
+}
+
+.submenu a {
+  font-size: 0.9em;
+  padding: 8px 0;
+  color: #ccc;
+}
+
+.submenu a:hover {
+  color: #fff;
+}
+
+/* WhatsApp Floating Button */
+.whatsapp-button {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  width: 60px;
+  height: 60px;
+  background-color: #00f2fe;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 15px #00f2fe;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  z-index: 1001;
+}
+
+.whatsapp-button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 20px #00f2fe;
+}
+
+.whatsapp-button img {
+  width: 28px;
+  height: 28px;
+}
