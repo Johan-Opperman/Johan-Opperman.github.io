@@ -1,42 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>About Johan Opperman</title>
-  <link rel="stylesheet" href="style.css" />
-</head>
 <body>
-
-  <!-- Sidebar (optional, reuse your existing sidebar) -->
+  <!-- Sidebar -->
   <div id="sidebar" class="sidebar">
     <a href="javascript:void(0)" class="closebtn" onclick="toggleSidebar()">&times;</a>
     <a href="index.html">Home</a>
+    <a href="about.html" class="active">About</a>
     <a href="cv.html">CV</a>
     <a href="contact.html">Contact</a>
   </div>
 
-  <!-- Main Content -->
-  <div class="main-content">
-    <h1>About Me</h1>
-    <p>Hello! I'm Johan Opperman, a tech enthusiast, developer, and creator. I love coding, Raspberry Pi projects, and building cool tech things.</p>
-    <p>Skills and interests:</p>
-    <ul>
-      <li>Python, Java, HTML/CSS/JS</li>
-      <li>Raspberry Pi & Embedded Systems</li>
-      <li>AI & Automation</li>
-      <li>Web Development & Design</li>
-    </ul>
-  </div>
+  <!-- Toggle button -->
+  <button class="explore-button" onclick="toggleSidebar()">☰ Menu</button>
 
-    <button class="explore-button" onclick="toggleSidebar()">☰ Menu</button>
-  </div
+  <!-- About section -->
+  <div class="about-section">
+    <h1>About Me</h1>
+    <p>Tell visitors something about yourself here.</p>
+  </div>
 
   <script>
     function toggleSidebar() {
       document.getElementById("sidebar").classList.toggle("active");
     }
   </script>
-
 </body>
-</html>
+
