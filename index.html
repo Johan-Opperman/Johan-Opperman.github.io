@@ -12,19 +12,6 @@
   <div id="sidebar" class="sidebar">
     <a href="javascript:void(0)" class="closebtn" onclick="toggleSidebar()">&times;</a>
     <a href="about.html">About</a>
-
-    <!-- Projects slide-out panel toggle -->
-    <a href="javascript:void(0)" class="submenu-toggle" onclick="openProjectsPanel()">Projects &#9654;</a>
-
-    <!-- Sliding panel for Projects -->
-    <div id="projects-panel" class="projects-panel">
-      <a href="javascript:void(0)" class="close-projects" onclick="closeProjectsPanel()">&times; Close</a>
-      <a href="https://github.com/Oppie100/Raspberry-Pi-Pico-Projects" target="_blank" rel="noopener noreferrer">
-        Raspberry Pi Pico Projects
-      </a>
-      <!-- Add more project links here -->
-    </div>
-
     <a href="cv.html">CV</a>
     <a href="contact.html">Contact</a>
   </div>
@@ -50,15 +37,8 @@
     function toggleSidebar() {
       document.getElementById("sidebar").classList.toggle("active");
     }
-
-    function openProjectsPanel() {
-      document.getElementById('projects-panel').classList.add('open');
-    }
-
-    function closeProjectsPanel() {
-      document.getElementById('projects-panel').classList.remove('open');
-    }
   </script>
 
 </body>
 </html>
+
