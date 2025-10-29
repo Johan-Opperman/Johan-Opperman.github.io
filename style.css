@@ -164,10 +164,12 @@ body, html {
   flex-direction: column; /* vertical stack */
   align-items: center;
   gap: 25px; /* space between each contact link */
-  margin-top: 30px; /* extra space above links */
+  margin-top: 50px; /* extra space above links */
 }
 
 .contact-item {
+  margin-top: 10px; /* adds extra spacing for each icon */
+}
   display: flex;
   align-items: center;
   text-decoration: none;
