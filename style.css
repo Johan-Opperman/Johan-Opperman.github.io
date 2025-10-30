@@ -1,343 +1,103 @@
-/* General Reset */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
+/* General page styling */
 body, html {
   height: 100%;
+  margin: 0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background: #000;
   color: #00f2fe;
   overflow-x: hidden;
 }
 
-/* Hero Section */
-.hero {
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  padding: 0 1rem;
-}
-
-.hero h1 {
-  font-size: 4rem;
-  margin-bottom: 0.5rem;
-  letter-spacing: 3px;
-  color: #00f2fe;
-  text-shadow: 0 0 5px #00f2fe;
-}
-
-.hero p {
-  font-size: 1.5rem;
-  font-weight: 300;
-  color: #0ff;
-  text-shadow: 0 0 4px #0ff;
-}
-
-/* Explore Button */
-.explore-button {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  background: linear-gradient(135deg, #00f2fe, #0061fe);
-  color: white;
-  padding: 12px 22px;
-  font-size: 16px;
-  font-weight: 700;
-  border: none;
-  border-radius: 8px;
-  box-shadow: 0 0 15px #00f2fe;
-  cursor: pointer;
-  transition: background 0.3s ease, box-shadow 0.3s ease;
-  z-index: 1001;
-}
-
-.explore-button:hover {
-  background: linear-gradient(135deg, #0061fe, #00f2fe);
-  box-shadow: 0 0 25px #00f2fe;
-}
-
-/* Sidebar */
+/* Sidebar styling */
 .sidebar {
+  height: 100%;
+  width: 0;
   position: fixed;
   top: 0;
-  right: -280px;
-  width: 280px;
-  height: 100%;
-  background: #121212;
-  box-shadow: -4px 0 15px rgba(0, 242, 254, 0.3);
-  padding-top: 70px;
-  display: flex;
-  flex-direction: column;
-  transition: right 0.4s ease;
+  left: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  transition: 0.4s;
+  padding-top: 60px;
   z-index: 1000;
 }
 
-.sidebar.active {
-  right: 0;
-}
-
-.sidebar .closebtn {
-  position: absolute;
-  top: 15px;
-  right: 20px;
-  font-size: 32px;
-  color: #00f2fe;
-  cursor: pointer;
-}
-
 .sidebar a {
-  padding: 15px 30px;
-  font-size: 18px;
-  color: #00f2fe;
+  padding: 10px 20px;
   text-decoration: none;
+  font-size: 22px;
+  color: #00f2fe;
   display: block;
-  font-weight: 600;
+  transition: 0.3s;
 }
 
-/* Submenu */
-.submenu {
-  display: none;
-  flex-direction: column;
-  margin-left: 30px;
+.sidebar a:hover {
+  color: #00aaff;
 }
 
-.submenu.open {
+.sidebar.active {
+  width: 250px;
+}
+
+.closebtn {
+  position: absolute;
+  top: 20px;
+  right: 25px;
+  font-size: 40px;
+}
+
+/* Hero section */
+.hero {
+  height: 100vh;
   display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  background: radial-gradient(circle at top, #000 0%, #020024 100%);
 }
 
-.submenu a {
-  font-size: 0.9em;
-  padding: 8px 0;
-  color: #ccc;
+/* Hero text */
+.hero-content h1 {
+  font-size: 3rem;
+  color: #00f2fe;
+  margin: 0;
 }
 
-.submenu a:hover {
-  color: #fff;
+.hero-content p {
+  font-size: 1.2rem;
+  color: #00aaff;
+  margin-top: 10px;
 }
 
-/* WhatsApp Floating Button */
+/* Menu button */
+.explore-button {
+  margin-top: 25px;
+  padding: 12px 25px;
+  font-size: 18px;
+  background: none;
+  border: 2px solid #00f2fe;
+  color: #00f2fe;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.explore-button:hover {
+  background: #00f2fe;
+  color: #000;
+}
+
+/* WhatsApp floating button */
 .whatsapp-button {
   position: fixed;
-  bottom: 25px;
-  right: 25px;
-  width: 60px;
-  height: 60px;
-  background-color: #00f2fe;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 0 15px #00f2fe;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  z-index: 1001;
-}
-
-.whatsapp-button:hover {
-  transform: scale(1.1);
-  box-shadow: 0 0 20px #00f2fe;
+  bottom: 20px;
+  right: 20px;
+  z-index: 999;
 }
 
 .whatsapp-button img {
-  width: 28px;
-  height: 28px;
+  width: 50px;
+  height: 50px;
 }
 
-/* Contact section spacing and layout */
-.contact-section {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  margin-top: 150px; /* moves the whole section lower */
-  gap: 20px; /* space between heading, paragraph, and links */
-  text-align: center;
-}
-
-/* Contact links container */
-.contact-links {
-  display: flex;
-  flex-direction: column; /* stack links vertically */
-  align-items: center;
-  gap: 25px; /* space between each link */
-  margin-top: 30px;
-}
-
-/* Each contact link wrapper */
-.contact-item-wrapper {
-  display: flex;
-  justify-content: center;
-  width: 100%;
-}
-
-/* Each contact link */
-.contact-item {
-  display: flex;
-  align-items: center;
-  text-decoration: none;
-  color: white;
-  font-size: 20px;
-  transition: transform 0.3s, opacity 0.3s;
-}
-
-.contact-item img {
-  width: 40px;
-  height: 40px;
-  margin-right: 12px;
-}
-
-.contact-item:hover {
-  transform: scale(1.05);
-  opacity: 0.8;
-}
-
-/* Tooltip container */
-.tooltip {
-  position: relative;
-  display: inline-block;
-}
-
-/* Tooltip text */
-.tooltip .tooltiptext {
-  visibility: hidden;
-  width: 220px;
-  background-color: #333;
-  color: #fff;
-  text-align: center;
-  padding: 6px 8px;
-  border-radius: 4px;
-  position: absolute;
-  z-index: 1;
-  bottom: 120%; /* positions above the Email link */
-  left: 50%;
-  transform: translateX(-50%);
-  opacity: 0;
-  transition: opacity 0.3s;
-  font-size: 14px;
-  pointer-events: none;
-}
-
-/* Show tooltip on hover */
-.tooltip:hover .tooltiptext {
-  visibility: visible;
-  opacity: 1;
-}
-/* About Section Styling */
-.about-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;      /* center horizontally */
-  text-align: center;       /* center text */
-  max-width: 800px;         /* limit content width */
-  margin: 120px auto 50px;  /* top, horizontal, bottom spacing */
-  padding: 0 20px;          /* small padding on mobile */
-  color: #00f2fe;           /* match your theme */
-}
-
-.about-content h1 {
-  font-size: 3rem;
-  margin-bottom: 20px;
-  letter-spacing: 2px;
-  text-shadow: 0 0 5px #00f2fe;
-}
-
-.about-content h2 {
-  font-size: 2rem;
-  margin-top: 40px;
-  margin-bottom: 15px;
-  letter-spacing: 1px;
-  text-shadow: 0 0 4px #00f2fe;
-}
-
-.about-content p {
-  font-size: 1.2rem;
-  line-height: 1.8;
-  margin-bottom: 15px;
-}
-
-.about-content ul {
-  list-style-type: none;    /* remove default bullets */
-  padding: 0;
-}
-
-.about-content ul li {
-  margin: 8px 0;
-  font-size: 1.1rem;
-  position: relative;
-  padding-left: 15px;
-}
-
-/* Optional: add a small decorative bullet using CSS */
-.about-content ul li::before {
-  content: "•";
-  color: #00f2fe;
-  position: absolute;
-  left: 0;
-}
-
-/* --- CV Buttons Styling --- */
-.cv-buttons {
-  margin-top: 40px;
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  flex-wrap: wrap;
-}
-
-.cv-buttons .btn {
-  display: inline-block;
-  padding: 12px 28px;
-  border-radius: 8px;
-  text-decoration: none;
-  font-weight: 600;
-  letter-spacing: 0.5px;
-  background: linear-gradient(135deg, #0078ff, #00c6ff);
-  color: white;
-  border: none;
-  box-shadow: 0 4px 10px rgba(0, 120, 255, 0.3);
-  transition: all 0.3s ease;
-}
-
-.cv-buttons .btn:hover {
-  transform: translateY(-3px);
-  background: linear-gradient(135deg, #005fcc, #00aaff);
-  box-shadow: 0 6px 15px rgba(0, 120, 255, 0.45);
-}
-
-.cv-buttons .btn:active {
-  transform: translateY(0);
-  box-shadow: 0 3px 8px rgba(0, 120, 255, 0.4);
-}
-
-/* Default (Light) Theme Colors */
-:root {
-  --bg-color: #ffffff;
-  --text-color: #000000;
-  --accent-color: #0078ff;
-  --sidebar-bg: #f2f2f2;
-}
-
-/* Dark Theme Colors */
-.dark-mode {
-  --bg-color: #1e1e1e;
-  --text-color: #ffffff;
-  --accent-color: #66b2ff;
-  --sidebar-bg: #2a2a2a;
-}
-
-/* Apply the theme */
-body {
-  background-color: var(--bg-color);
-  color: var(--text-color);
-  transition: background 0.3s, color 0.3s;
-}
-
-/* Sidebar */
-#sidebar {
-  background-color: var(--sidebar-bg);
-}
