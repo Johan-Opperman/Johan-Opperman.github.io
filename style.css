@@ -314,3 +314,48 @@ body, html {
   box-shadow: 0 3px 8px rgba(0, 120, 255, 0.4);
 }
 
+/* Default (Light) Theme Colors */
+:root {
+  --bg-color: #ffffff;
+  --text-color: #000000;
+  --accent-color: #0078ff;
+  --sidebar-bg: #f2f2f2;
+}
+
+/* Dark Theme Colors */
+.dark-mode {
+  --bg-color: #1e1e1e;
+  --text-color: #ffffff;
+  --accent-color: #66b2ff;
+  --sidebar-bg: #2a2a2a;
+}
+
+/* Apply the theme */
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: background 0.3s, color 0.3s;
+}
+
+/* Sidebar */
+#sidebar {
+  background-color: var(--sidebar-bg);
+}
+
+/* Theme Toggle Button */
+.theme-toggle {
+  position: fixed;
+  top: 15px;
+  right: 20px;
+  background: var(--accent-color);
+  border: none;
+  color: white;
+  padding: 8px 10px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.theme-toggle:hover {
+  opacity: 0.8;
+}
+
