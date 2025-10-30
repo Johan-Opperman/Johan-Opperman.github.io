@@ -181,3 +181,24 @@ body, html {
   transform: translateY(0);
   box-shadow: 0 3px 8px rgba(0, 120, 255, 0.4);
 }
+
+.contact-links a {
+  display: flex;
+  align-items: center;
+  margin: 15px 0;
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+}
+
+.contact-links img {
+  margin-right: 10px;
+  width: 30px;
+  height: 30px;
+}
+
+.contact-links a:hover {
+  opacity: 0.8;
+  transform: scale(1.05);
+  transition: 0.3s;
+}
