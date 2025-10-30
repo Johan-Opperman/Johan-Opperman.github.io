@@ -101,3 +101,24 @@ body, html {
   height: 50px;
 }
 
+/* Menu button — move it to top-right corner */
+.explore-button {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  padding: 10px 18px;
+  font-size: 18px;
+  background: none;
+  border: 2px solid #00f2fe;
+  color: #00f2fe;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: 0.3s;
+  z-index: 1100; /* make sure it's above everything */
+}
+
+.explore-button:hover {
+  background: #00f2fe;
+  color: #000;
+}
+
