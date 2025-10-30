@@ -280,4 +280,37 @@ body, html {
   left: 0;
 }
 
+/* --- CV Buttons Styling --- */
+.cv-buttons {
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.cv-buttons .btn {
+  display: inline-block;
+  padding: 12px 28px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  background: linear-gradient(135deg, #0078ff, #00c6ff);
+  color: white;
+  border: none;
+  box-shadow: 0 4px 10px rgba(0, 120, 255, 0.3);
+  transition: all 0.3s ease;
+}
+
+.cv-buttons .btn:hover {
+  transform: translateY(-3px);
+  background: linear-gradient(135deg, #005fcc, #00aaff);
+  box-shadow: 0 6px 15px rgba(0, 120, 255, 0.45);
+}
+
+.cv-buttons .btn:active {
+  transform: translateY(0);
+  box-shadow: 0 3px 8px rgba(0, 120, 255, 0.4);
+}
 
