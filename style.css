@@ -175,23 +175,6 @@ body, html {
   left: 0;
 }
 
-/* Sidebar */
-.sidebar {
-  height: 100%;
-  width: 0; 
-  position: fixed;
-  top: 0;
-  left: 0;
-  background-color: #111;
-  overflow-x: hidden;
-  transition: 0.3s;
-  z-index: 1000; /* make sure it’s above contact section */
-}
-
-.sidebar.active {
-  width: 250px;
-}
-
 /* Contact section layout */
 
 contact-section {
