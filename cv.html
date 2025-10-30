@@ -7,113 +7,10 @@
   <link rel="stylesheet" href="style.css" />
   <!-- Favicon -->
   <link rel="icon" type="image/png" sizes="32x32" href="21fd8100-6341-4d18-8f00-1d67c7ad059d.png">
-
-  <style>
-    /* CV PAGE CUSTOM STYLES */
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f4f4f4;
-      color: #222;
-    }
-
-    /* Sidebar styling (same as home page) */
-    .sidebar {
-      height: 100%;
-      width: 0;
-      position: fixed;
-      z-index: 1000;
-      top: 0;
-      left: 0;
-      background-color: #111;
-      overflow-x: hidden;
-      transition: 0.5s;
-      padding-top: 60px;
-    }
-
-    .sidebar.active {
-      width: 250px;
-    }
-
-    .sidebar a {
-      padding: 10px 25px;
-      text-decoration: none;
-      font-size: 18px;
-      color: #ccc;
-      display: block;
-      transition: 0.3s;
-    }
-
-    .sidebar a:hover {
-      color: #fff;
-      background-color: #0078ff;
-    }
-
-    .closebtn {
-      position: absolute;
-      top: 15px;
-      right: 25px;
-      font-size: 36px;
-      color: white;
-      text-decoration: none;
-    }
-
-    /* Menu Button */
-    .explore-button {
-      position: fixed;
-      top: 20px;
-      left: 20px;
-      background-color: #0078ff;
-      color: white;
-      border: none;
-      font-size: 22px;
-      cursor: pointer;
-      border-radius: 8px;
-      padding: 10px 15px;
-      transition: background 0.3s;
-      z-index: 1100;
-    }
-
-    .explore-button:hover {
-      background-color: #005fcc;
-    }
-
-    /* Hero section */
-    .hero {
-      text-align: center;
-      padding: 100px 20px;
-    }
-
-    /* CV buttons */
-    .cv-buttons {
-      margin-top: 30px;
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      flex-wrap: wrap;
-    }
-
-    .btn {
-      background-color: #0078ff;
-      color: white;
-      padding: 12px 25px;
-      border-radius: 8px;
-      text-decoration: none;
-      font-weight: 600;
-      transition: all 0.3s ease;
-    }
-
-    .btn:hover {
-      background-color: #005fcc;
-      transform: translateY(-3px);
-      box-shadow: 0 5px 10px rgba(0, 120, 255, 0.3);
-    }
-  </style>
 </head>
-
 <body>
 
-  <!-- Sidebar -->
+  <!-- Sidebar (same as main page) -->
   <div id="sidebar" class="sidebar">
     <a href="javascript:void(0)" class="closebtn" onclick="toggleSidebar()">&times;</a>
     <a href="index.html">Home</a>
@@ -144,4 +41,3 @@
 
 </body>
 </html>
-
