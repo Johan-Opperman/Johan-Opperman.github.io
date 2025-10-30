@@ -193,14 +193,23 @@ body, html {
   text-align: center;
 }
 
+/* Contact links container */
 .contact-links {
   display: flex;
-  flex-direction: column; /* vertical stack */
+  flex-direction: column; /* stack links vertically */
   align-items: center;
-  gap: 25px; /* space between each contact link */
-  margin-top: 30px; /* extra space above links */
+  gap: 25px; /* space between each link */
+  margin-top: 30px;
 }
 
+/* Each contact link wrapper */
+.contact-item-wrapper {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+/* Each contact link */
 .contact-item {
   display: flex;
   align-items: center;
@@ -213,7 +222,7 @@ body, html {
 .contact-item img {
   width: 40px;
   height: 40px;
-  margin-right: 12px; /* space between icon and text */
+  margin-right: 12px;
 }
 
 .contact-item:hover {
@@ -238,13 +247,13 @@ body, html {
   border-radius: 4px;
   position: absolute;
   z-index: 1;
-  bottom: 120%; /* positions above the link */
+  bottom: 120%; /* positions above the Email link */
   left: 50%;
   transform: translateX(-50%);
   opacity: 0;
   transition: opacity 0.3s;
   font-size: 14px;
-  pointer-events: none; /* so it doesn’t block hover */
+  pointer-events: none;
 }
 
 /* Show tooltip on hover */
