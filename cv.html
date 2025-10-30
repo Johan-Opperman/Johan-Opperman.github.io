@@ -15,23 +15,23 @@
     <a href="javascript:void(0)" class="closebtn" onclick="toggleSidebar()">&times;</a>
     <a href="index.html">Home</a>
     <a href="about.html">About</a>
-    <a href="cv.html" class="active">CV</a>
+    <a href="cv.html">CV</a>
     <a href="contact.html">Contact</a>
   </div>
 
-  <!-- CV Section -->
+  <!-- Hero / CV Section -->
   <div class="hero">
-    <h1>Curriculum Vitae</h1>
-    <p>You can view or download my CV using the buttons below:</p>
+    <div class="hero-content">
+      <h1>Curriculum Vitae</h1>
+      <p>You can view or download my CV using the buttons below:</p>
 
-    <div class="cv-buttons">
-      <a href="Johan_Opperman_CV.pdf" target="_blank" class="btn">👁️ View CV</a>
-      <a href="Johan_Opperman_CV.pdf" download class="btn">⬇️ Download CV</a>
+      <div class="cv-buttons">
+        <a href="Johan_Opperman_CV.pdf" target="_blank" class="btn">View CV</a>
+        <a href="Johan_Opperman_CV.pdf" download class="btn">Download CV</a>
+      </div>
     </div>
+    <button class="explore-button" onclick="toggleSidebar()">☰ Menu</button>
   </div>
-
-  <!-- Sidebar Toggle Button -->
-  <button class="explore-button" onclick="toggleSidebar()">☰</button>
 
   <script>
     function toggleSidebar() {
