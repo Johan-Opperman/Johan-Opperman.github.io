@@ -122,3 +122,56 @@ body, html {
   color: #000;
 }
 
+/* About Section Styling */
+.about-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;      /* center horizontally */
+  text-align: center;       /* center text */
+  max-width: 800px;         /* limit content width */
+  margin: 120px auto 50px;  /* top, horizontal, bottom spacing */
+  padding: 0 20px;          /* small padding on mobile */
+  color: #00f2fe;           /* match your theme */
+}
+
+.about-content h1 {
+  font-size: 3rem;
+  margin-bottom: 20px;
+  letter-spacing: 2px;
+  text-shadow: 0 0 5px #00f2fe;
+}
+
+.about-content h2 {
+  font-size: 2rem;
+  margin-top: 40px;
+  margin-bottom: 15px;
+  letter-spacing: 1px;
+  text-shadow: 0 0 4px #00f2fe;
+}
+
+.about-content p {
+  font-size: 1.2rem;
+  line-height: 1.8;
+  margin-bottom: 15px;
+}
+
+.about-content ul {
+  list-style-type: none;    /* remove default bullets */
+  padding: 0;
+}
+
+.about-content ul li {
+  margin: 8px 0;
+  font-size: 1.1rem;
+  position: relative;
+  padding-left: 15px;
+}
+
+/* Optional: add a small decorative bullet using CSS */
+.about-content ul li::before {
+  content: "•";
+  color: #00f2fe;
+  position: absolute;
+  left: 0;
+}
+
