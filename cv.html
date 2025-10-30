@@ -1,91 +1,43 @@
-/* --- Sidebar (slide) --- */
-/* Adjust colors to match your original theme if needed */
-.sidebar {
-  height: 100%;
-  width: 0;
-  position: fixed;
-  z-index: 1000;
-  top: 0;
-  left: 0;
-  background-color: #111; /* change this to your original sidebar color if different */
-  overflow-x: hidden;
-  transition: width 0.4s ease;
-  padding-top: 60px;
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Johan Opperman - CV</title>
+  <link rel="stylesheet" href="style.css" />
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="21fd8100-6341-4d18-8f00-1d67c7ad059d.png">
+</head>
+<body>
 
-.sidebar.active {
-  width: 250px; /* open width */
-}
+  <!-- Sidebar (same as main page) -->
+  <div id="sidebar" class="sidebar">
+    <a href="javascript:void(0)" class="closebtn" onclick="toggleSidebar()">&times;</a>
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="cv.html" class="active">CV</a>
+    <a href="contact.html">Contact</a>
+  </div>
 
-.sidebar a {
-  padding: 12px 24px;
-  text-decoration: none;
-  font-size: 18px;
-  color: #ccc; /* link color when closed */
-  display: block;
-  transition: background 0.25s, color 0.25s;
-}
+  <!-- CV Section -->
+  <div class="hero">
+    <h1>Curriculum Vitae</h1>
+    <p>You can view or download my CV using the buttons below:</p>
 
-.sidebar a:hover, .sidebar a.active {
-  color: #fff;
-  background-color: #0078ff; /* highlight color - change to your site's accent */
-}
+    <div class="cv-buttons">
+      <a href="Johan_Opperman_CV.pdf" target="_blank" class="btn">👁️ View CV</a>
+      <a href="Johan_Opperman_CV.pdf" download class="btn">⬇️ Download CV</a>
+    </div>
+  </div>
 
-/* close button inside sidebar */
-.closebtn {
-  position: absolute;
-  top: 12px;
-  right: 18px;
-  font-size: 36px;
-  color: #fff;
-  text-decoration: none;
-}
+  <!-- Sidebar Toggle Button -->
+  <button class="explore-button" onclick="toggleSidebar()">☰</button>
 
-/* --- Explore / hamburger button --- */
-.explore-button {
-  position: fixed;
-  top: 18px;
-  left: 18px;
-  background-color: #0078ff; /* match your primary color */
-  color: white;
-  border: none;
-  font-size: 20px;
-  cursor: pointer;
-  border-radius: 6px;
-  padding: 8px 12px;
-  z-index: 1100;
-  transition: background 0.2s, transform 0.12s;
-}
-.explore-button:hover { background-color: #005fcc; }
-.explore-button:active { transform: translateY(1px); }
+  <script>
+    function toggleSidebar() {
+      document.getElementById("sidebar").classList.toggle("active");
+    }
+  </script>
 
-/* --- CV buttons (styled, non-intrusive) --- */
-.cv-buttons {
-  margin-top: 30px;
-  display: flex;
-  justify-content: center;
-  gap: 16px;
-  flex-wrap: wrap;
-}
-
-.btn {
-  display: inline-block;
-  padding: 10px 18px;
-  border-radius: 8px;
-  text-decoration: none;
-  font-weight: 600;
-  background-color: #0078ff;
-  color: white;
-  transition: transform 0.18s, box-shadow 0.18s, background 0.18s;
-}
-.btn:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 6px 12px rgba(0,0,0,0.12);
-  background-color: #005fcc;
-}
-
-/* ensure clickable area above other layers */
-.cv-buttons { position: relative; z-index: 1050; }
-
-/* OPTIONAL: if hero or other element covers the explore-button, raise z-index */
-.hero { position: relative; z-index: 1; }
+</body>
+</html>
