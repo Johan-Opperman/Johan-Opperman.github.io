@@ -7,41 +7,84 @@
   <link rel="stylesheet" href="style.css" />
   <!-- Favicon -->
   <link rel="icon" type="image/png" sizes="32x32" href="21fd8100-6341-4d18-8f00-1d67c7ad059d.png">
+  <style>
+    /* CV Page Custom Styling */
+    .hero {
+      text-align: center;
+      padding: 80px 20px;
+    }
+
+    .cv-buttons {
+      margin-top: 30px;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      background-color: #0078ff;
+      color: white;
+      padding: 12px 25px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .btn:hover {
+      background-color: #005fcc;
+      transform: translateY(-3px);
+      box-shadow: 0 5px 10px rgba(0, 120, 255, 0.3);
+    }
+
+    .explore-button {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      background-color: #333;
+      color: white;
+      border: none;
+      font-size: 22px;
+      cursor: pointer;
+      border-radius: 6px;
+      padding: 10px 15px;
+      transition: background 0.3s;
+    }
+
+    .explore-button:hover {
+      background-color: #555;
+    }
+  </style>
 </head>
 <body>
 
-  <!-- Sidebar (same as main page) -->
+  <!-- Sidebar -->
   <div id="sidebar" class="sidebar">
     <a href="javascript:void(0)" class="closebtn" onclick="toggleSidebar()">&times;</a>
     <a href="index.html">Home</a>
     <a href="about.html">About</a>
-    <a href="cv.html">CV</a>
+    <a href="cv.html" class="active">CV</a>
     <a href="contact.html">Contact</a>
   </div>
 
-  <!-- Hero / CV Section -->
+  <!-- CV Section -->
   <div class="hero">
-    <div class="hero-content">
-      <h1>Curriculum Vitae</h1>
-      <p>You can view or download my CV using the buttons below:</p>
+    <h1>Curriculum Vitae</h1>
+    <p>You can view or download my CV using the buttons below:</p>
 
-      <div class="cv-buttons">
-        <a href="Johan_Opperman_CV.pdf" target="_blank" class="btn">View CV</a>
-        <a href="Johan_Opperman_CV.pdf" download class="btn">Download CV</a>
-      </div>
+    <div class="cv-buttons">
+      <a href="Johan_Opperman_CV.pdf" target="_blank" class="btn">👁️ View CV</a>
+      <a href="Johan_Opperman_CV.pdf" download class="btn">⬇️ Download CV</a>
     </div>
-    <button class="explore-button" onclick="toggleSidebar()">☰ Menu</button>
   </div>
 
-     <button class="explore-button" onclick="toggleSidebar()">☰ Home</button>
-  </div
- 
+  <button class="explore-button" onclick="toggleSidebar()">☰</button>
 
   <script>
     function toggleSidebar() {
       document.getElementById("sidebar").classList.toggle("active");
     }
   </script>
-
 </body>
 </html>
