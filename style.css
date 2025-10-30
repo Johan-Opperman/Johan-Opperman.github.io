@@ -182,23 +182,32 @@ body, html {
   box-shadow: 0 3px 8px rgba(0, 120, 255, 0.4);
 }
 
-.contact-links a {
+/* Contact section layout */
+.contact-links {
+  display: flex;
+  flex-direction: column; /* stack vertically */
+  align-items: center;
+  margin-top: 40px; /* space from header/logo */
+  gap: 20px; /* space between each link */
+}
+
+.contact-item {
   display: flex;
   align-items: center;
-  margin: 15px 0;
-  color: white;
   text-decoration: none;
+  color: white;
   font-size: 18px;
+  transition: transform 0.3s, opacity 0.3s;
 }
 
-.contact-links img {
-  margin-right: 10px;
-  width: 30px;
-  height: 30px;
+.contact-item img {
+  width: 40px;
+  height: 40px;
+  margin-right: 12px; /* space between icon and text */
 }
 
-.contact-links a:hover {
-  opacity: 0.8;
+.contact-item:hover {
   transform: scale(1.05);
-  transition: 0.3s;
+  opacity: 0.8;
 }
+
