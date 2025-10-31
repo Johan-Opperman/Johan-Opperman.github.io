@@ -41,7 +41,7 @@
       border: none;
       font-size: 18px;
       cursor: pointer;
-      display: none;
+      display: none; /* hide by default */
     }
 
     #restart:hover {
@@ -60,25 +60,26 @@
     const scoreDisplay = document.getElementById('score');
     const restartBtn = document.getElementById('restart');
 
-    const grid = 20; // size of each cell
-    const canvasSize = 400;
-    let snake, food, direction, gameOver, score;
+    const grid = 20;
+    let snake, food, direction, gameOver, score, gameLoopInterval;
 
     function startGame() {
-      snake = [{x: 8, y: 8}]; // starting snake
-      direction = {x: 0, y: 0};
+      snake = [{x: 8, y: 8}];
+      direction = {x: 0, y: 0}; // start stationary
       score = 0;
       gameOver = false;
       food = spawnFood();
       scoreDisplay.textContent = "Score: 0";
       restartBtn.style.display = "none";
-      gameLoop();
+
+      if (gameLoopInterval) clearInterval(gameLoopInterval); // clear previous loop
+      gameLoopInterval = setInterval(gameLoop, 150); // start game loop
     }
 
     function spawnFood() {
       return {
-        x: Math.floor(Math.random() * (canvasSize / grid)),
-        y: Math.floor(Math.random() * (canvasSize / grid))
+        x: Math.floor(Math.random() * (canvas.width / grid)),
+        y: Math.floor(Math.random() * (canvas.height / grid))
       };
     }
 
@@ -92,26 +93,25 @@
     function gameLoop() {
       if (gameOver) return;
 
-      // Move snake
       const head = {x: snake[0].x + direction.x, y: snake[0].y + direction.y};
-      
+
       // Check collisions
-      if (head.x < 0 || head.x >= canvasSize / grid || head.y < 0 || head.y >= canvasSize / grid || snake.some(segment => segment.x === head.x && segment.y === head.y)) {
+      if (head.x < 0 || head.x >= canvas.width / grid || head.y < 0 || head.y >= canvas.height / grid ||
+          snake.some(segment => segment.x === head.x && segment.y === head.y)) {
         gameOver = true;
-        scoreDisplay.textContent = "Game Over! Final Score: " + score;
         restartBtn.style.display = "block";
+        scoreDisplay.textContent = "Game Over! Final Score: " + score;
         return;
       }
 
       snake.unshift(head);
 
-      // Check if food eaten
       if (head.x === food.x && head.y === food.y) {
         score++;
         scoreDisplay.textContent = "Score: " + score;
         food = spawnFood();
       } else {
-        snake.pop(); // remove tail if no food eaten
+        snake.pop();
       }
 
       // Draw everything
@@ -123,10 +123,9 @@
 
       ctx.fillStyle = '#ff0055';
       ctx.fillRect(food.x * grid, food.y * grid, grid - 1, grid - 1);
-
-      setTimeout(gameLoop, 150); // control speed
     }
 
+    // Start the game automatically on page load
     startGame();
   </script>
 </body>
