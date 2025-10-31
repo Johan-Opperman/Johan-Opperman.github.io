@@ -44,6 +44,19 @@
       const submenu = document.getElementById("projects-submenu");
       submenu.classList.toggle("open");
     }
+
+     // 🧷 Clippy functions
+    function clippyTalk() {
+      const bubble = document.getElementById("clippy-bubble");
+      bubble.classList.toggle("hidden");
+
+      if (!bubble.classList.contains("hidden")) {
+        // Auto-hide after 5 seconds
+        setTimeout(() => {
+          bubble.classList.add("hidden");
+        }, 5000);
+      }
+    }
   </script>
 
   <!-- Clippy Assistant -->
