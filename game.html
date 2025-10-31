@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ostrich Run</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      background: radial-gradient(circle at top, #000 0%, #020024 100%);
+      color: #00f2fe;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      text-align: center;
+    }
+
+    #game {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .ground {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 40px;
+      background-color: #222;
+    }
+
+    .ostrich {
+      position: absolute;
+      bottom: 40px;
+      left: 50px;
+      width: 60px;
+      height: 60px;
+      background-color: #00f2fe;
+      border-radius: 10px;
+    }
+
+    .obstacle {
+      position: absolute;
+      bottom: 40px;
+      right: -50px;
+      width: 40px;
+      height: 40px;
+      background-color: #ff0055;
+      border-radius: 6px;
+      animation: move 2s linear infinite;
+    }
+
+    @keyframes move {
+      0% { right: -50px; }
+      100% { right: 110%; }
+    }
+
+    .jump {
+      animation: jump 0.6s ease-out;
+    }
+
+    @keyframes jump {
+      0% { bottom: 40px; }
+      50% { bottom: 180px; }
+      100% { bottom: 40px; }
+    }
+
+    #score {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 20px;
+      color: #00f2fe;
+    }
+
+    #restart {
+      display: none;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #00f2fe;
+      color: #000;
+      padding: 15px 30px;
+      border-radius: 25px;
+      border: none;
+      font-size: 18px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    #restart:hover {
+      background: #00aaff;
+    }
+
+  </style>
+</head>
+<body>
+  <div id="game">
+    <div class="ground"></div>
+    <div class="ostrich" id="ostrich"></div>
+    <div class="obstacle" id="obstacle"></div>
+    <div id="score">Score: 0</div>
+    <button id="restart" onclick="restartGame()">Restart</button>
+  </div>
+
+  <script>
+    const ostrich = document.getElementById("ostrich");
+    const obstacle = document.getElementById("obstacle");
+    const scoreDisplay = document.getElementById("score");
+    const restartButton = document.getElementById("restart");
+
+    let score = 0;
+    let gameOver = false;
+
+    document.addEventListener("keydown", function(event) {
+      if (event.code === "Space" && !ostrich.classList.contains("jump") && !gameOver) {
+        ostrich.classList.add("jump");
+        setTimeout(() => ostrich.classList.remove("jump"), 600);
+      }
+    });
+
+    let checkCollision = setInterval(() => {
+      if (gameOver) return;
+
+      let ostrichTop = parseInt(window.getComputedStyle(ostrich).getPropertyValue("bottom"));
+      let obstacleLeft = parseInt(window.getComputedStyle(obstacle).getPropertyValue("right"));
+
+      if (obstacleLeft > 940 && obstacleLeft < 1000 && ostrichTop <= 60) {
+        gameOver = true;
+        obstacle.style.animationPlayState = 'paused';
+        scoreDisplay.textContent = "Game Over! Final Score: " + score;
+        restartButton.style.display = "block";
+      } else if (!gameOver) {
+        score++;
+        scoreDisplay.textContent = "Score: " + score;
+      }
+    }, 100);
+
+    function restartGame() {
+      score = 0;
+      gameOver = false;
+      obstacle.style.animationPlayState = 'running';
+      scoreDisplay.textContent = "Score: 0";
+      restartButton.style.display = "none";
+    }
+  </script>
+</body>
+</html>
