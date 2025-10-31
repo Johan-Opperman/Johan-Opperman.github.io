@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Ostrich Run</title>
+  <title>Ostrich Run Test</title>
   <style>
     body {
       margin: 0;
@@ -48,12 +48,12 @@
       height: 40px;
       background-color: #ff0055;
       border-radius: 6px;
-      animation: move 2s linear infinite;
+      animation: move linear infinite;
     }
 
     @keyframes move {
       0% { right: -50px; }
-      100% { right: 110%; }
+      100% { right: 100%; }
     }
 
     .jump {
@@ -93,7 +93,6 @@
     #restart:hover {
       background: #00aaff;
     }
-
   </style>
 </head>
 <body>
@@ -113,6 +112,9 @@
 
     let score = 0;
     let gameOver = false;
+    let speed = 2; // seconds for obstacle animation
+
+    obstacle.style.animationDuration = speed + "s";
 
     document.addEventListener("keydown", function(event) {
       if (event.code === "Space" && !ostrich.classList.contains("jump") && !gameOver) {
@@ -125,9 +127,9 @@
       if (gameOver) return;
 
       let ostrichTop = parseInt(window.getComputedStyle(ostrich).getPropertyValue("bottom"));
-      let obstacleLeft = parseInt(window.getComputedStyle(obstacle).getPropertyValue("right"));
+      let obstacleRight = parseInt(window.getComputedStyle(obstacle).getPropertyValue("right"));
 
-      if (obstacleLeft > 940 && obstacleLeft < 1000 && ostrichTop <= 60) {
+      if (obstacleRight < window.innerWidth - 50 && obstacleRight + obstacle.offsetWidth > 50 && ostrichTop <= 60) {
         gameOver = true;
         obstacle.style.animationPlayState = 'paused';
         scoreDisplay.textContent = "Game Over! Final Score: " + score;
@@ -136,12 +138,23 @@
         score++;
         scoreDisplay.textContent = "Score: " + score;
       }
-    }, 100);
+    }, 50);
+
+    function increaseDifficulty() {
+      if (!gameOver) {
+        speed = Math.max(0.8, 2 - score / 100);
+        obstacle.style.animationDuration = speed + "s";
+        setTimeout(increaseDifficulty, 2000);
+      }
+    }
+    increaseDifficulty();
 
     function restartGame() {
       score = 0;
       gameOver = false;
       obstacle.style.animationPlayState = 'running';
+      obstacle.style.right = "-50px";
+      obstacle.style.animationDuration = "2s";
       scoreDisplay.textContent = "Score: 0";
       restartButton.style.display = "none";
     }
