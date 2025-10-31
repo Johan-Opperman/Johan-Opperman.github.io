@@ -44,34 +44,6 @@
       const submenu = document.getElementById("projects-submenu");
       submenu.classList.toggle("open");
     }
-
-     // 🧷 Clippy functions
-    // Funny messages
-  const clippyMessages = [
-    "It looks like you're viewing a portfolio! 👀",
-    "Need help finding something? 😏",
-    "Have you tried clicking all the buttons? 😉",
-    "Remember to check out the CV! 📄",
-    "I see code in your future... 💻",
-    "Oops! Did someone summon me? 🤖",
-    "Beware the floating Clippy! 🌀",
-    "Click me for advice... or memes 😆"
-  ];
-
-  function clippyTalk() {
-    const bubble = document.getElementById("clippy-bubble");
-
-    // Pick a random message
-    const randomMessage = clippyMessages[Math.floor(Math.random() * clippyMessages.length)];
-    bubble.textContent = randomMessage;
-
-    // Show bubble
-    bubble.classList.remove("hidden");
-
-    // Auto-hide after 5 seconds
-    setTimeout(() => {
-      bubble.classList.add("hidden");
-    }, 5000);
   }
   
   </script>
