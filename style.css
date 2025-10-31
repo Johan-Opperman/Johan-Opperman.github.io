@@ -314,3 +314,40 @@ body, html {
   position: absolute;
   left: 0;
 }
+
+/* 🧷 Clippy Assistant */
+#clippy-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 999;
+  cursor: pointer;
+}
+
+#clippy {
+  width: 80px;
+  height: auto;
+  transition: transform 0.2s ease;
+}
+
+#clippy:hover {
+  transform: scale(1.1);
+}
+
+#clippy-bubble {
+  position: absolute;
+  bottom: 90px;
+  right: 0;
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  padding: 10px 14px;
+  border-radius: 12px;
+  font-size: 14px;
+  max-width: 180px;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.hidden {
+  display: none;
+}
