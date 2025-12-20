@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Johan Opperman | Operations to Tech</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0a0a0a;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1.5rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 3rem;
+        }
+
+        .nav-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: color 0.3s;
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            color: #ffffff;
+        }
+
+        .floating-shape {
+            position: absolute;
+            opacity: 0.6;
+        }
+
+        .shape-1 {
+            top: 15%;
+            left: 10%;
+            width: 30px;
+            height: 30px;
+            background: #ff006e;
+            transform: rotate(45deg);
+        }
+
+        .shape-2 {
+            top: 25%;
+            right: 15%;
+            width: 40px;
+            height: 40px;
+            background: #ffbe0b;
+            border-radius: 50%;
+        }
+
+        .shape-3 {
+            bottom: 20%;
+            right: 8%;
+            width: 25px;
+            height: 25px;
+            background: #3a86ff;
+            transform: rotate(45deg);
+        }
+
+         .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 120px 3rem 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Full width background photo */
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('photo.png');
+            background-size: cover;
+            background-position: center right;
+            filter: grayscale(100%) contrast(1.1);
+            opacity: 0.3;
+            z-index: 0;
+        }
+
+        /* Gradient overlay for text readability */
+        .hero::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to right, 
+                rgba(10, 10, 10, 0.95) 0%, 
+                rgba(10, 10, 10, 0.85) 40%, 
+                rgba(10, 10, 10, 0.4) 70%, 
+                transparent 100%);
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+        }
+
+        .tag {
+            color: #10b981;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            display: block;
+        }
+
+        .hero h1 {
+            font-size: 4.5rem;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 2rem;
+            letter-spacing: -2px;
+        }
+
+        .hero h1 .highlight {
+            color: #10b981;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.7;
+            margin-bottom: 3rem;
+            max-width: 600px;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1.2rem 2.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .btn-whatsapp {
+            background: #10b981;
+            color: #ffffff;
+        }
+
+        .btn-whatsapp:hover {
+            background: #059669;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(16, 185, 129, 0.3);
+        }
+
+        .btn-email {
+            background: transparent;
+            color: rgba(255, 255, 255, 0.9);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-email:hover {
+            border-color: rgba(255, 255, 255, 0.6);
+            background: rgba(255, 255, 255, 0.05);
+
+        }
+
+        .transition {
+            background: #111111;
+            padding: 100px 3rem;
+            text-align: center;
+        }
+
+        .transition h2 {
+            font-size: 3rem;
+            margin-bottom: 2rem;
+            font-weight: 700;
+        }
+
+        .transition p {
+            font-size: 1.3rem;
+            color: rgba(255, 255, 255, 0.7);
+            max-width: 800px;
+            margin: 0 auto 4rem;
+            line-height: 1.8;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 4rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 4rem;
+            font-weight: 700;
+            color: #10b981;
+            line-height: 1;
+            margin-bottom: 1rem;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.6);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 100px 3rem;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            color: #ffffff;
+        }
+
+        .card {
+            background: #1a1a1a;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            transition: all 0.3s;
+        }
+
+        .card:hover {
+            border-color: #10b981;
+            transform: translateY(-4px);
+        }
+
+        .card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: #ffffff;
+        }
+
+        .card p {
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .card strong {
+            color: #10b981;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-card {
+            background: #1a1a1a;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 2rem;
+            transition: all 0.3s;
+        }
+
+        .skill-card:hover {
+            border-color: #10b981;
+            transform: translateY(-4px);
+        }
+
+        .skill-card h4 {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            color: #ffffff;
+        }
+
+        .skill-card ul {
+            list-style: none;
+        }
+
+        .skill-card li {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 0.8rem;
+            padding-left: 1.5rem;
+            position: relative;
+            line-height: 1.6;
+        }
+
+        .skill-card li:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #10b981;
+            font-weight: bold;
+        }
+
+        .contact-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .contact-link {
+            padding: 1.5rem;
+            background: #1a1a1a;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            text-decoration: none;
+            color: #ffffff;
+            font-weight: 600;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .contact-link:hover {
+            background: #10b981;
+            border-color: #10b981;
+            transform: translateY(-4px);
+        }
+
+        footer {
+            text-align: center;
+            padding: 4rem 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        @media (max-width: 968px) {
+            .hero {
+                grid-template-columns: 1fr;
+                padding-top: 100px;
+            }
+
+            .hero-content {
+                padding-right: 0;
+                margin-bottom: 3rem;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-photo img {
+                width: 100%;
+                height: 400px;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .nav-links {
+                gap: 1.5rem;
+            }
+
+            .transition h2 {
+                font-size: 2rem;
+            }
+
+            .transition p {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="nav-content">
+            <div class="logo">Johan Opperman</div>
+            <div class="nav-links">
+                <a href="#about">About</a>
+                <a href="#skills">Skills</a>
+                <a href="#projects">Projects</a>
+                <a href="#contact">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="floating-shape shape-1"></div>
+        <div class="floating-shape shape-2"></div>
+        
+        <div class="hero-content">
+            <span class="tag">Operations Professional | Aspiring Pentester</span>
+            
+            <h1>
+                HI, I'M <span class="highlight">JOHAN</span><br>
+                TRANSITIONING FROM<br>
+                FARM OPERATIONS TO<br>
+                TECH INFRASTRUCTURE
+            </h1>
+            
+            <p><p>10+ years managing systems and solving problems. Now deploying infrastructure, learning Python and cybersecurity, with the goal of becoming a penetration tester and ethical hacker.</p></p>
+            
+            <div class="cta-buttons">
+                <a href="https://wa.me/27799231887" class="btn btn-whatsapp">
+                    💬 LET'S CHAT ON WHATSAPP
+                </a>
+                <a href="mailto:johanopperman100@gmail.com" class="btn btn-email">
+                    OR SEND ME AN EMAIL
+                </a>
+            </div>
+        </div>
+        
+        <div class="floating-shape shape-3"></div>
+    </section>
+
+    <section class="transition">
+        <h2>From Managing Operations to Building Technology</h2>
+        <p><p>I bring a unique perspective: 10+ years of operations experience combined with growing cybersecurity expertise. My goal is to become a penetration tester and ethical hacker—securing systems by thinking like an attacker.</p></p>
+        
+        <div class="stats">
+            <div class="stat-item">
+                <div class="stat-number">24</div>
+                <div class="stat-label">Docker Services Running</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">10+</div>
+                <div class="stat-label">Years Experience</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">99%</div>
+                <div class="stat-label">Homelab Uptime</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="section">
+        <h2 class="section-title">About Me</h2>
+        <div class="card">
+            <p>For over 10 years, I managed agricultural operations—troubleshooting equipment, leading teams, and solving complex problems under pressure. Now I'm applying that same hands-on approach to technology.</p>
+            
+            <p>I've deployed and maintain a complete homelab infrastructure with 24 Docker services. I'm learning Python through practical projects. I understand Linux, networking, and security fundamentals.</p>
+            
+            <p><strong>What makes me different:</strong> I don't just know theory—I've built real systems that run 24/7. I've recovered from failures, optimized performance, and maintained production infrastructure. That's hands-on experience you can count on.</p>
+        </div>
+    </section>
+
+    <!-- CAREER GOALS SECTION -->
+    <section id="goals" class="section">
+        <h2 class="section-title">Career Direction</h2>
+        <div class="card">
+            <h3>🎯 Becoming a Penetration Tester & Ethical Hacker</h3>
+            <p>My goal is to transition into cybersecurity, specifically penetration testing and ethical hacking. I'm building the foundation through hands-on practice, certifications, and real-world security implementations.</p>
+            
+            <p><strong>Current Focus:</strong></p>
+            <ul style="list-style: none; padding-left: 0;">
+                <li style="margin-bottom: 1rem; padding-left: 2rem; position: relative;">
+                    <span style="position: absolute; left: 0; color: #10b981; font-weight: bold;">→</span>
+                    <strong>CompTIA Security+</strong> - Actively studying for certification
+                </li>
+                <li style="margin-bottom: 1rem; padding-left: 2rem; position: relative;">
+                    <span style="position: absolute; left: 0; color: #10b981; font-weight: bold;">→</span>
+                    <strong>Penetration Testing</strong> - Learning methodologies and tools
+                </li>
+                <li style="margin-bottom: 1rem; padding-left: 2rem; position: relative;">
+                    <span style="position: absolute; left: 0; color: #10b981; font-weight: bold;">→</span>
+                    <strong>Ethical Hacking</strong> - Studying vulnerabilities and exploit techniques
+                </li>
+                <li style="margin-bottom: 1rem; padding-left: 2rem; position: relative;">
+                    <span style="position: absolute; left: 0; color: #10b981; font-weight: bold;">→</span>
+                    <strong>Red Team Skills</strong> - Offensive security mindset and tactics
+                </li>
+                <li style="margin-bottom: 1rem; padding-left: 2rem; position: relative;">
+                    <span style="position: absolute; left: 0; color: #10b981; font-weight: bold;">→</span>
+                    <strong>Hands-On Practice</strong> - Running vulnerable applications in homelab (DVWA, WebGoat, Juice Shop)
+                </li>
+            </ul>
+
+            <p style="margin-top: 2rem;"><strong>Why I'm a Good Fit for Security:</strong></p>
+            <p>My operations background gives me a unique advantage—I understand how systems actually work in production, how they fail, and how to think like both a defender and an attacker. I approach security with a problem-solver's mindset and hands-on experience maintaining real infrastructure.</p>
+        </div>
+    </section>
+
+    <section id="skills" class="section">
+        <h2 class="section-title">Skills & Technologies</h2>
+        <div class="skills-grid">
+            <div class="skill-card">
+                <h4>Infrastructure</h4>
+                <ul>
+                    <li>Docker & Container Management</li>
+                    <li>Linux System Administration</li>
+                    <li>Raspberry Pi Deployment</li>
+                    <li>Network Configuration</li>
+                    <li>System Monitoring (24/7)</li>
+                </ul>
+            </div>
+            
+            <div class="skill-card">
+                <h4>Programming</h4>
+                <ul>
+                    <li>Python (Learning & Growing)</li>
+                    <li>Bash Scripting</li>
+                    <li>Git & Version Control</li>
+                    <li>Command Line Tools</li>
+                    <li>Automation Scripts</li>
+                </ul>
+            </div>
+            
+            <div class="skill-card">
+                <h4>Security & Ethical Hacking</h4>
+                <ul>
+                    <li>Studying for CompTIA Security+</li>
+                    <li>Learning Penetration Testing</li>
+                    <li>Ethical Hacking Fundamentals</li>
+                    <li>Pi-hole DNS Filtering</li>
+                    <li>WireGuard VPN Setup</li>
+                    <li>UFW Firewall Config</li>
+                    <li>Fail2Ban Protection</li>
+                    <li>Network Security Basics</li>
+                </ul>
+            </div>
+            
+            <div class="skill-card">
+                <h4>Operations</h4>
+                <ul>
+                    <li>Problem Solving</li>
+                    <li>Team Leadership (10+ years)</li>
+                    <li>Systems Maintenance</li>
+                    <li>Independent Work</li>
+                    <li>Process Optimization</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="section">
+        <h2 class="section-title">What I've Built</h2>
+
+        <div class="card">
+            <h3>Cybersecurity Learning Lab</h3>
+            <p><strong>Vulnerable Applications & Security Practice | 2024-Present</strong></p>
+            <p>Running intentionally vulnerable applications in isolated homelab environment for hands-on security testing and learning. Practicing penetration testing techniques, exploit development, and security assessments in a safe, controlled environment.</p>
+            <p><strong>Applications:</strong> DVWA (Damn Vulnerable Web Application), WebGoat, Juice Shop, and other intentionally vulnerable targets for ethical hacking practice.</p>
+            <p><strong>Learning:</strong> Web application vulnerabilities, OWASP Top 10, SQL injection, XSS, authentication bypass, privilege escalation, and security tool usage (Kali Linux, Burp Suite, nmap).</p>
+        </div>
+        
+        <div class="card">
+            <h3>Personal Homelab Infrastructure</h3>
+            <p><strong>24 Docker Services | Raspberry Pi 4 | Production Environment</strong></p>
+            <p>Deployed and maintain complete homelab infrastructure running 24/7. Includes Pi-hole blocking 101,000+ malicious domains daily, WireGuard VPN for secure remote access, comprehensive monitoring with Uptime Kuma and Grafana, and 19 additional services for automation and self-hosting.</p>
+            <p><strong>Technologies:</strong> Docker, Linux (Ubuntu), Raspberry Pi, Pi-hole, WireGuard, Grafana, Prometheus, Portainer, UFW, Fail2Ban</p>
+            <p><strong>Key Achievement:</strong> Maintained 99%+ uptime while recovering from major system failures independently.</p>
+        </div>
+        
+        <div class="card">
+            <h3>Python Learning & Automation</h3>
+            <p><strong>Ongoing Self-Study | 2024-Present</strong></p>
+            <p>Learning Python through hands-on projects and practical application. Building automation scripts, working with APIs, file processing, and data manipulation. Focus on solving real problems with code.</p>
+            <p><strong>Approach:</strong> Learn by doing—not just tutorials. Build things that solve actual problems, break them, fix them, and understand how they work.</p>
+        </div>
+    </section>
+
+    <section id="contact" class="section">
+        <h2 class="section-title">Let's Work Together</h2>
+        <div class="card">
+            <p style="font-size: 1.2rem; margin-bottom: 2rem;">style="font-size: 1.2rem; margin-bottom: 2rem;">Open to entry-level cybersecurity roles, penetration testing internships, security analyst positions, and infrastructure roles with security focus. Actively studying for Security+ certification. Let's connect!</p>
+            
+            <div class="contact-links">
+                <a href="https://wa.me/27799231887" class="contact-link">WhatsApp</a>
+                <a href="mailto:johanopperman100@gmail.com" class="contact-link">Email</a>
+                <a href="https://github.com/Johan-Opperman" class="contact-link">GitHub</a>
+                <a href="https://www.linkedin.com/in/johan-opperman-a4884727b" class="contact-link">LinkedIn</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Johan Opperman</p>
+        <p style="margin-top: 0.5rem;">From farm operations to tech infrastructure—building the future one system at a time.</p>
+    </footer>
+
+</body>
+</html>
