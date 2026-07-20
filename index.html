@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -122,6 +121,11 @@
   .foot-links a:hover{color:var(--steel-bright)}
   .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
   .reveal.in{opacity:1;transform:none}
+  /* hero logo image - glows/scales in on load, then stays (JS-driven) */
+  .hero-logo{position:relative;margin:0 0 30px;max-width:520px;z-index:3;}
+  .hero-logo img{display:block;width:100%;height:auto;position:relative;z-index:2;}
+  .hl-glow{position:absolute;left:50%;top:50%;width:80%;height:120%;transform:translate(-50%,-50%);background:radial-gradient(ellipse at center,rgba(91,141,199,.22),transparent 65%);z-index:1;pointer-events:none;}
+  @media(max-width:640px){.hero-logo{max-width:100%;}}
   /* click-to-highlight pulse on target section */
   @keyframes secPulse{
     0%{box-shadow:inset 0 0 0 0 rgba(125,176,232,0)}
@@ -188,6 +192,10 @@
     <div class="hero-scanglow" id="heroScanGlow"></div>
     <div class="hero-scan" id="heroScan"></div>
     <div class="wrap">
+      <div class="hero-logo" id="heroLogo">
+        <div class="hl-glow" id="hlGlow"></div>
+        <img src="opsec-logo.png" alt="OpSec Solutions — Security, Automation, AI" id="hlImg">
+      </div>
       <div class="status reveal"><span class="dot"></span> STATUS: LEARNING &middot; BUILDING &middot; SHIPPING</div>
       <h1 class="reveal">Building toward <span class="accent">cybersecurity</span>, automation &amp; AI.</h1>
       <p class="lead reveal">I'm Johan Opperman &mdash; working hands-on in the security trade by day, and building real projects in cybersecurity, automation and AI toward something of my own: OpSec.</p>
@@ -342,11 +350,11 @@
         <div class="contact-grid">
           <a class="contact-item" href="mailto:YOUR-EMAIL@EXAMPLE.COM">
             <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="1"/><path d="m3 7 9 6 9-6"/></svg></span>
-            <span><span class="lbl">Email</span><span class="val">johanopperman100@gmail.com</span></span>
+            <span><span class="lbl">Email</span><span class="val">YOUR-EMAIL@EXAMPLE.COM</span></span>
           </a>
           <a class="contact-item" href="tel:+27000000000">
             <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 4h4l2 5-3 2a11 11 0 0 0 5 5l2-3 5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg></span>
-            <span><span class="lbl">Phone</span><span class="val">+27 799231887</span></span>
+            <span><span class="lbl">Phone</span><span class="val">+27 00 000 0000</span></span>
           </a>
           <a class="contact-item" href="https://github.com/Johan-Opperman" target="_blank" rel="noopener">
             <span class="ico"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.53 2.36 1.09 2.94.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02a9.6 9.6 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10 10 0 0 0 12 2Z"/></svg></span>
@@ -354,7 +362,7 @@
           </a>
           <a class="contact-item" href="https://linkedin.com/in/YOUR-LINKEDIN" target="_blank" rel="noopener">
             <span class="ico"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5ZM3 9h4v12H3V9Zm7 0h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05C21.4 8.65 22 11 22 14.1V21h-4v-6.1c0-1.45-.03-3.3-2-3.3s-2.3 1.57-2.3 3.2V21h-4V9Z"/></svg></span>
-            <span><span class="lbl"></span><span class="val"><https://www.linkedin.com/in/johannes-opperman-a4884727b//span></span>
+            <span><span class="lbl">LinkedIn</span><span class="val">linkedin.com/in/YOUR-LINKEDIN</span></span>
           </a>
         </div>
       </div>
@@ -374,6 +382,23 @@
     </div>
   </div>
 </footer>
+<script>
+  // ---- hero logo image: glows + scales in on load, then stays ----
+  (function(){
+    const img = document.getElementById('hlImg');
+    const glow = document.getElementById('hlGlow');
+    if(!img) return;
+    // starting states (inline, JS-driven so reduced-motion can't block)
+    img.style.opacity='0'; img.style.transform='scale(.9)';
+    img.style.transition='opacity 1s ease, transform 1.1s cubic-bezier(.16,1,.3,1)';
+    if(glow){ glow.style.opacity='0'; glow.style.transform='translate(-50%,-50%) scale(.6)'; glow.style.transition='opacity 1.2s ease, transform 1.2s ease'; }
+    function play(){
+      setTimeout(function(){ img.style.opacity='1'; img.style.transform='scale(1)'; }, 200);
+      setTimeout(function(){ if(glow){ glow.style.opacity='1'; glow.style.transform='translate(-50%,-50%) scale(1)'; } }, 350);
+    }
+    if(img.complete){ play(); } else { img.addEventListener('load', play); img.addEventListener('error', play); }
+  })();
+</script>
 <script>
   (function(){
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
