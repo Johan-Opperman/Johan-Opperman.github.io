@@ -174,6 +174,69 @@ footer{border-top:1px solid rgba(93,184,64,0.06);padding:32px 48px;display:flex;
   .testi-grid{grid-template-columns:1fr}
   .price-inner{padding:0 20px}
 }
+
+/* ── Mobile improvements ── */
+@media(max-width:600px){
+  /* Hero */
+  .hero-h1{font-size:36px;letter-spacing:-0.5px}
+  .hero-sub{font-size:15px;color:#aaa}
+  .hero-badge{font-size:9px;letter-spacing:1px}
+  .hero-ctas{flex-direction:column;width:100%;padding:0 20px}
+  .btn-p,.btn-s{width:100%;text-align:center;padding:16px;font-size:12px}
+
+  /* Nav */
+  .nav-name{display:none}
+  nav{padding:0 16px;height:56px}
+
+  /* Services */
+  .svc-card{padding:32px 24px}
+  .svc-title{font-size:16px}
+  .svc-desc{font-size:13px}
+
+  /* Stats - single column on tiny screens */
+  .stats-inner{grid-template-columns:1fr 1fr;gap:24px;padding:0 20px}
+  .stat-num{font-size:36px}
+  #stats-bar{padding:48px 20px}
+
+  /* Process */
+  .process-step{padding:0}
+  .step-num{font-size:24px}
+
+  /* Pricing */
+  .price-card{padding:32px 20px}
+  .price-amount{font-size:32px}
+  #pricing{padding:70px 0}
+
+  /* Testimonials */
+  .testi-card{padding:24px 20px}
+
+  /* About */
+  #about{gap:40px}
+  .sk-grid{grid-template-columns:1fr}
+
+  /* Contact */
+  .cc-grid{grid-template-columns:1fr;max-width:100%}
+  .cc{flex-direction:row;justify-content:flex-start;padding:16px 20px;gap:16px}
+  .cc-v{font-size:12px}
+
+  /* Section titles */
+  .sec-title{font-size:26px}
+  .sec{padding:60px 16px}
+  .svc-inner{padding:0 16px}
+
+  /* Why grid */
+  .why-grid{gap:16px}
+  .why-item{padding:20px 16px}
+
+  /* Footer */
+  footer{font-size:9px;gap:8px;padding:20px 16px}
+
+  /* Pricing inner */
+  .price-inner{padding:0 16px}
+
+  /* Process */
+  .process-grid{gap:24px}
+}
 </style>
 </head>
 <body>
@@ -206,7 +269,7 @@ footer{border-top:1px solid rgba(93,184,64,0.06);padding:32px 48px;display:flex;
       <li><a href="#about">About</a></li>
       <li><a href="#process">Process</a></li><li><a href="#pricing">Pricing</a></li><li><a href="https://blog.opperman.dev" target="_blank">Blog</a></li>
       <li><a href="https://cv.opperman.dev" target="_blank">CV</a></li>
-      <li><a href="game.html" target="_blank" style="color:var(--amber)!important">▶ Play</a></li>
+      <li><a href="game.html" target="_blank" rel="noopener" onclick="window.open('game.html','_blank');return false;" style="color:var(--amber)!important">▶ Play</a></li>
       <li><a href="#contact" class="nav-cta">Contact Me</a></li>
     </ul>
     <button class="hamburger" id="hamburger" onclick="toggleMenu()">
@@ -221,7 +284,7 @@ footer{border-top:1px solid rgba(93,184,64,0.06);padding:32px 48px;display:flex;
     <a href="#pricing" onclick="closeMenu()">Pricing</a>
     <a href="https://blog.opperman.dev" target="_blank" onclick="closeMenu()">Blog</a>
     <a href="https://cv.opperman.dev" target="_blank" onclick="closeMenu()">CV</a>
-    <a href="game.html" target="_blank" onclick="closeMenu()" style="color:var(--amber)!important">▶ Play</a>
+    <a href="game.html" target="_blank" rel="noopener" onclick="closeMenu();window.open('game.html','_blank');return false;" style="color:var(--amber)!important">▶ Play</a>
     <a href="#contact" class="m-cta" onclick="closeMenu()">Contact Me</a>
   </div>
   <section id="hero">
