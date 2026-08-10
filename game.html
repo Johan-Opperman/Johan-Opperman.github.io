@@ -3,517 +3,783 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Opperman Cybernetix — Website security audits, Python automation, and Linux server setup. Based in Robertson, Western Cape.">
-<title>Opperman Cybernetix — Secure Solutions</title>
+<title>[OC] Cyber Defense — Opperman Cybernetix</title>
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-:root{--green:#5db840;--green-bright:#00ff41;--green-dim:#1c4010;--silver:#c0c0c0;--amber:#ffb020;--black:#000;--black-soft:#070d07;--white:#f0f0f0;--mono:'Courier New',monospace;--sans:'Segoe UI',system-ui,sans-serif}
-html{scroll-behavior:smooth}
-body{background:var(--black);color:var(--silver);font-family:var(--sans);overflow-x:hidden;cursor:none}
-#cur{position:fixed;width:18px;height:18px;border:1.5px solid var(--green);border-radius:50%;pointer-events:none;z-index:99999;transform:translate(-50%,-50%);transition:transform 0.15s,border-color 0.2s,width 0.2s,height 0.2s;mix-blend-mode:screen}
-#cur-dot{position:fixed;width:3px;height:3px;background:var(--green-bright);border-radius:50%;pointer-events:none;z-index:99999;transform:translate(-50%,-50%)}@media(pointer:coarse){#cur,#cur-dot{display:none!important}}
-#intro{position:fixed;inset:0;background:var(--black);z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:32px}
-#lock-wrap{cursor:pointer;position:relative}
-#lock-glow{position:absolute;inset:-30px;background:radial-gradient(circle,rgba(93,184,64,0.1),transparent 70%);border-radius:50%;opacity:0;transition:opacity 0.3s;pointer-events:none}
-#lock-wrap:hover #lock-glow{opacity:1}
-#lock-svg{display:block;filter:drop-shadow(0 0 6px rgba(93,184,64,0.15));transition:filter 0.3s}
-#lock-wrap:hover #lock-svg{filter:drop-shadow(0 0 18px rgba(93,184,64,0.45))}
-#lock-shackle{transition:all 0.5s cubic-bezier(0.23,1,0.32,1);transform-origin:50% 90%}
-.lock-open #lock-shackle{transform:rotate(-48deg) translateX(-7px) translateY(-5px)}
-.lock-open #lock-body-r{stroke:#5db840}
-#lock-label{font-family:var(--mono);font-size:13px;letter-spacing:4px;color:var(--green-dim);text-align:center}
-#lock-sub{font-family:var(--mono);font-size:10px;letter-spacing:2px;color:#1a1a1a;text-align:center;animation:breathe 2.5s ease-in-out infinite}
-@keyframes breathe{0%,100%{opacity:0.3}50%{opacity:0.9}}
-#skip-btn{position:fixed;top:24px;right:28px;font-family:var(--mono);font-size:10px;letter-spacing:2px;color:#222;border:1px solid #1a1a1a;padding:8px 16px;cursor:pointer;background:none;transition:all 0.2s;z-index:10000}
-#skip-btn:hover{color:var(--green-dim);border-color:var(--green-dim)}
-#intro-bar{position:fixed;bottom:0;left:0;height:2px;background:var(--green);z-index:10001;width:0;transition:width 3s linear}
-#scan-line{position:fixed;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--green),transparent);z-index:10000;display:none;box-shadow:0 0 12px var(--green)}
-#bg-canvas{position:fixed;inset:0;z-index:0;pointer-events:none}
-#main{position:relative;z-index:1;opacity:0;transition:opacity 0.6s}
-#main.visible{opacity:1}
-nav{position:fixed;top:0;left:0;right:0;padding:0 48px;height:64px;display:flex;align-items:center;justify-content:space-between;z-index:100;background:rgba(0,0,0,0.9);border-bottom:1px solid rgba(93,184,64,0.08);backdrop-filter:blur(8px)}
-.nav-brand{display:flex;align-items:center;gap:12px;text-decoration:none}
-.nav-mark{width:34px;height:34px;border:1.5px solid var(--green);border-radius:5px;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:11px;font-weight:900;color:var(--green);letter-spacing:1px}
-.nav-name{font-family:var(--mono);font-size:12px;font-weight:700;color:var(--white);letter-spacing:2px}
-.nav-links{display:flex;gap:28px;list-style:none}
-.nav-links a{font-family:var(--mono);font-size:10px;letter-spacing:2px;color:rgba(93,184,64,0.55);text-decoration:none;text-transform:uppercase;transition:color 0.2s;position:relative}
-.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;right:0;height:1px;background:var(--green);transform:scaleX(0);transition:transform 0.25s}
-.nav-links a:hover{color:var(--green)}.nav-links a:hover::after{transform:scaleX(1)}
-.nav-cta{padding:8px 20px;background:var(--green)!important;color:var(--black)!important;border-radius:3px;font-weight:700}
-.nav-cta::after{display:none!important}.nav-cta:hover{transform:translateY(-1px);box-shadow:0 4px 18px rgba(93,184,64,0.35)!important}
-#hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:100px 48px 80px;position:relative}
-.hero-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 16px;border:1px solid rgba(93,184,64,0.4);border-radius:100px;font-family:var(--mono);font-size:10px;letter-spacing:2px;color:var(--green);margin-bottom:32px;opacity:0;animation:fadeUp 0.5s 0.1s forwards}
-.badge-dot{width:6px;height:6px;background:var(--green);border-radius:50%;animation:breathe 2s ease-in-out infinite}
-.hero-h1{font-family:var(--mono);font-size:clamp(36px,6vw,76px);font-weight:900;line-height:1.05;color:var(--white);margin-bottom:20px;opacity:0;animation:fadeUp 0.5s 0.2s forwards;letter-spacing:-1px}
-.hero-h1 span{color:var(--green)}
-.hero-sub{font-size:clamp(14px,2vw,18px);color:#666;line-height:1.65;max-width:540px;margin-bottom:16px;opacity:0;animation:fadeUp 0.5s 0.3s forwards}
-#hero-tagline{font-family:var(--mono);font-size:12px;letter-spacing:3px;color:rgba(93,184,64,0.6);margin-bottom:48px;opacity:0;animation:fadeUp 0.5s 0.4s forwards;min-height:20px}
-.hero-ctas{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;opacity:0;animation:fadeUp 0.5s 0.5s forwards}
-.btn-p{padding:14px 32px;background:var(--green);color:var(--black);font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:2px;text-decoration:none;text-transform:uppercase;border-radius:4px;transition:all 0.2s}
-.btn-p:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(93,184,64,0.4)}
-.btn-s{padding:14px 32px;border:1px solid rgba(93,184,64,0.6);color:var(--green);font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:2px;text-decoration:none;text-transform:uppercase;border-radius:4px;transition:all 0.2s}
-.btn-s:hover{border-color:var(--green);background:rgba(93,184,64,0.04);transform:translateY(-2px)}
-.scroll-ind{position:absolute;bottom:36px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;opacity:0;animation:fadeUp 0.5s 1s forwards}
-.scroll-ind span{font-family:var(--mono);font-size:9px;letter-spacing:3px;color:var(--green-dim)}
-.scroll-line{width:1px;height:44px;background:linear-gradient(to bottom,var(--green),transparent);animation:scrollA 1.5s ease-in-out infinite}
-@keyframes scrollA{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
-.sec{padding:100px 48px;max-width:1160px;margin:0 auto}
-.sec-label{font-family:var(--mono);font-size:10px;letter-spacing:4px;color:var(--green);text-transform:uppercase;margin-bottom:14px;text-shadow:0 0 10px rgba(93,184,64,0.4)}
-.sec-title{font-size:clamp(26px,4vw,44px);font-weight:700;color:var(--white);line-height:1.1;margin-bottom:48px;text-shadow:0 0 20px rgba(255,255,255,0.1)}
-.sec-div{width:48px;height:2px;background:var(--green);margin-bottom:48px}
-#services{background:rgba(7,13,7,0.4);padding:100px 0}
-.svc-inner{max-width:1160px;margin:0 auto;padding:0 48px}
-.svc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1px;background:rgba(93,184,64,0.05)}
-.svc-card{background:var(--black);padding:48px 32px;position:relative;overflow:hidden;transition:background 0.3s;opacity:0;transform:translateY(-70px) rotate(-3deg)}
-.svc-card.drop{animation:cardDrop 0.65s cubic-bezier(0.34,1.38,0.64,1) forwards}
-@keyframes cardDrop{0%{opacity:0;transform:translateY(-80px) rotate(-4deg)}65%{opacity:1;transform:translateY(5px) rotate(0.4deg)}82%{transform:translateY(-2px) rotate(0)}100%{opacity:1;transform:translateY(0) rotate(0)}}
-.svc-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--green),transparent);transform:scaleX(0);transition:transform 0.4s}
-.svc-card:hover{background:var(--black-soft)}.svc-card:hover::before{transform:scaleX(1)}
-.corner{position:absolute;width:12px;height:12px;opacity:0;transition:opacity 0.25s}
-.svc-card:hover .corner{opacity:1}
-.c-tl{top:10px;left:10px;border-top:1px solid var(--green);border-left:1px solid var(--green)}
-.c-tr{top:10px;right:10px;border-top:1px solid var(--green);border-right:1px solid var(--green)}
-.c-bl{bottom:10px;left:10px;border-bottom:1px solid var(--green);border-left:1px solid var(--green)}
-.c-br{bottom:10px;right:10px;border-bottom:1px solid var(--green);border-right:1px solid var(--green)}
-.svc-num{font-family:var(--mono);font-size:10px;letter-spacing:2px;color:rgba(93,184,64,0.5);margin-bottom:18px}
-.svc-icon{width:38px;height:38px;color:var(--green);margin-bottom:18px}
-.svc-title{font-size:17px;font-weight:700;color:var(--white);margin-bottom:12px}
-.svc-desc{font-size:13px;line-height:1.75;color:#999}
-.svc-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:18px}
-.tag{font-family:var(--mono);font-size:9px;letter-spacing:1px;padding:3px 8px;border:1px solid rgba(93,184,64,0.3);color:rgba(93,184,64,0.6);border-radius:2px;text-transform:uppercase}
-.why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:48px}
-.why-item{padding:28px 22px;border:1px solid rgba(93,184,64,0.06);border-radius:4px;transition:border-color 0.3s}
-.why-item:hover{border-color:rgba(93,184,64,0.2)}
-.why-icon{font-size:26px;margin-bottom:14px}
-.why-title{font-size:15px;font-weight:700;color:var(--white);margin-bottom:8px}
-.why-desc{font-size:13px;line-height:1.7;color:#999}
-#stats-bar{border-top:1px solid rgba(93,184,64,0.06);border-bottom:1px solid rgba(93,184,64,0.06);padding:64px 48px}
-.stats-inner{max-width:1160px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:48px;text-align:center}
-.stat-num{font-family:var(--mono);font-size:clamp(32px,4vw,56px);font-weight:900;color:var(--green);line-height:1;margin-bottom:8px}
-.stat-label{font-family:var(--mono);font-size:9px;letter-spacing:3px;color:rgba(93,184,64,0.5);text-transform:uppercase}
-#about{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;max-width:1160px;margin:0 auto;padding:100px 48px}
-.about-text p{font-size:14px;line-height:1.85;color:#aaa;margin-bottom:14px}
-.about-text p strong{color:var(--silver)}
-.sk-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:36px}
-.sk-h{display:flex;justify-content:space-between;margin-bottom:6px}
-.sk-n{font-family:var(--mono);font-size:11px;color:var(--silver)}
-.sk-p{font-family:var(--mono);font-size:11px;color:var(--green)}
-.sk-bar{height:2px;background:#111;border-radius:1px;overflow:hidden}
-.sk-fill{height:100%;background:linear-gradient(90deg,var(--green-dim),var(--green));width:0;transition:width 1.2s cubic-bezier(0.23,1,0.32,1)}
-.term-win{background:var(--black-soft);border:1px solid rgba(93,184,64,0.12);border-radius:6px;overflow:hidden;position:sticky;top:80px}
-.term-bar{padding:10px 14px;background:#080808;border-bottom:1px solid rgba(93,184,64,0.08);display:flex;align-items:center;gap:6px}
-.tdot{width:9px;height:9px;border-radius:50%}.td-r{background:#e53935}.td-y{background:#ffb020}.td-g{background:var(--green)}
-.term-title{font-family:var(--mono);font-size:10px;color:var(--green-dim);margin-left:8px;letter-spacing:1px}
-.term-body{padding:20px 20px 24px;font-family:var(--mono);font-size:12px;line-height:1.9}
-.t-pr{color:var(--green)}.t-cm{color:var(--silver)}.t-ou{color:#888}.t-gr{color:var(--green)}
-.t-cur{display:inline-block;width:7px;height:12px;background:var(--green-bright);animation:blink 0.8s step-end infinite;vertical-align:middle}
-@keyframes blink{50%{opacity:0}}
-#contact{text-align:center;max-width:1160px;margin:0 auto;padding:100px 48px}
-.cc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;max-width:580px;margin:48px auto 0}
-.cc{padding:26px 18px;border:1px solid rgba(93,184,64,0.06);background:var(--black-soft);text-decoration:none;transition:all 0.3s;display:flex;flex-direction:column;align-items:center;gap:10px;border-radius:4px}
-.cc:hover{border-color:rgba(93,184,64,0.3);transform:translateY(-4px);box-shadow:0 12px 36px rgba(93,184,64,0.07)}
-.cc svg{color:var(--green)}.cc-l{font-family:var(--mono);font-size:9px;letter-spacing:2px;color:var(--green-dim);text-transform:uppercase}.cc-v{font-family:var(--mono);font-size:11px;color:var(--silver)}
-footer{border-top:1px solid rgba(93,184,64,0.06);padding:32px 48px;display:flex;align-items:center;justify-content:space-between;font-family:var(--mono);font-size:10px;color:rgba(93,184,64,0.4);letter-spacing:1px}
-@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
-.reveal{opacity:0;transform:translateY(20px);transition:opacity 0.5s,transform 0.5s}.reveal.shown{opacity:1;transform:translateY(0)}
-@media(max-width:900px){nav{padding:0 20px}.nav-links{display:none}.sec{padding:70px 20px}#services{padding:70px 0}.svc-inner{padding:0 20px}#about{grid-template-columns:1fr;padding:70px 20px}.term-win{position:static}.stats-inner{grid-template-columns:1fr 1fr}.why-grid{grid-template-columns:1fr}.cc-grid{grid-template-columns:1fr;max-width:280px}#contact{padding:70px 20px}footer{flex-direction:column;gap:10px;text-align:center;padding:28px 20px}#hero{padding:80px 20px 60px}}
-@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:0.01ms!important;transition-duration:0.01ms!important}}
+:root{
+  --green:#5db840;--bright:#00ff41;--dim:#1c4010;--dark:#050f05;
+  --red:#e53935;--amber:#ffb020;--silver:#c0c0c0;
+  --black:#000;--mono:'Courier New',monospace;
+}
+html,body{height:100%;overflow:hidden}
+body{background:var(--black);font-family:var(--mono);color:var(--green);cursor:none}
 
-/* Process */
-.process-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:48px;position:relative}
-.process-grid::before{content:'';position:absolute;top:28px;left:calc(16.67% + 16px);right:calc(16.67% + 16px);height:1px;background:linear-gradient(90deg,var(--green-dim),transparent)}
-.process-step{padding:0 32px 0 0;position:relative}
-.step-num{font-family:var(--mono);font-size:32px;font-weight:900;color:var(--green);line-height:1;margin-bottom:20px;opacity:0.6}
-.step-line{width:32px;height:2px;background:var(--green);margin-bottom:20px}
-.step-title{font-size:16px;font-weight:700;color:var(--white);margin-bottom:10px}
-.step-desc{font-size:13px;line-height:1.75;color:#999}
+/* Custom cursor */
+#cur{position:fixed;width:24px;height:24px;border:2px solid var(--green);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform 0.1s;mix-blend-mode:screen}
+#cur::before,#cur::after{content:'';position:absolute;background:var(--green)}
+#cur::before{width:2px;height:8px;left:50%;top:-10px;transform:translateX(-50%)}
+#cur::after{width:8px;height:2px;top:50%;left:-10px;transform:translateY(-50%)}
+#cur.danger{border-color:var(--red);--green:var(--red)}
+#cur-dot{position:fixed;width:4px;height:4px;background:var(--bright);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%)}
 
-/* Pricing */
-.price-inner{max-width:1160px;margin:0 auto;padding:0 48px}
-.price-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(93,184,64,0.05)}
-.price-card{background:var(--black);padding:40px 28px;position:relative;transition:background 0.3s}
-.price-card:hover{background:var(--black-soft)}
-.price-badge{position:absolute;top:0;left:28px;font-family:var(--mono);font-size:9px;letter-spacing:2px;color:var(--black);background:var(--green);padding:4px 10px;text-transform:uppercase;border-radius:0 0 4px 4px}
-.price-service{font-family:var(--mono);font-size:10px;letter-spacing:2px;color:var(--green-dim);text-transform:uppercase;margin-bottom:20px;margin-top:8px}
-.price-amount{font-family:var(--mono);font-size:38px;font-weight:900;color:var(--white);line-height:1;margin-bottom:4px}
-.price-period{font-family:var(--mono);font-size:10px;letter-spacing:1px;color:#777;margin-bottom:28px}
-.price-features{list-style:none;margin-bottom:28px}
-.price-features li{font-size:13px;color:#999;padding:6px 0;border-bottom:1px solid #0a0a0a;display:flex;align-items:center;gap:8px}
-.price-features li::before{content:'✓';color:var(--green);font-family:var(--mono);font-size:11px;flex-shrink:0}
-.price-btn{display:block;text-align:center;padding:12px;border:1px solid rgba(93,184,64,0.25);color:var(--green);font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:2px;text-decoration:none;text-transform:uppercase;border-radius:3px;transition:all 0.2s}
-.price-btn:hover{background:var(--green);color:var(--black);border-color:var(--green)}
+canvas{display:block;position:fixed;inset:0}
 
-/* Testimonials */
-.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:48px}
-.testi-card{padding:36px 28px;border:1px solid rgba(93,184,64,0.06);background:var(--black-soft);border-radius:4px;transition:border-color 0.3s;position:relative}
-.testi-card:hover{border-color:rgba(93,184,64,0.2)}
-.testi-quote{font-size:48px;line-height:0.8;color:var(--green-dim);font-family:Georgia,serif;margin-bottom:16px;display:block;opacity:0.4}
-.testi-text{font-size:14px;line-height:1.75;color:#aaa;margin-bottom:24px;font-style:italic}
-.testi-author{display:flex;align-items:center;gap:12px}
-.testi-avatar{width:36px;height:36px;background:var(--green-dim);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:11px;font-weight:700;color:var(--green);flex-shrink:0}
-.testi-name{font-size:13px;color:var(--silver);font-weight:600}
-.testi-role{font-family:var(--mono);font-size:10px;letter-spacing:1px;color:#666;margin-top:2px}
+/* HUD */
+#hud{position:fixed;top:0;left:0;right:0;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;z-index:10;background:linear-gradient(to bottom,rgba(0,0,0,0.9),transparent);pointer-events:none}
+.hud-brand{display:flex;align-items:center;gap:10px}
+.hud-mark{border:1.5px solid var(--green);border-radius:4px;padding:2px 7px;font-size:11px;font-weight:900;color:var(--green);letter-spacing:1px}
+.hud-name{font-size:13px;font-weight:700;color:var(--silver);letter-spacing:2px}
+.hud-center{text-align:center}
+.hud-score{font-size:28px;font-weight:900;color:var(--bright);line-height:1}
+.hud-score-label{font-size:9px;letter-spacing:3px;color:var(--dim);margin-top:2px}
+.hud-right{text-align:right}
+.hud-level{font-size:18px;font-weight:700;color:var(--amber);line-height:1}
+.hud-level-label{font-size:9px;letter-spacing:3px;color:var(--dim);margin-top:2px}
 
-@media(max-width:900px){
-  .process-grid{grid-template-columns:1fr;gap:32px}
-  .process-grid::before{display:none}
-  .price-grid{grid-template-columns:1fr}
-  .testi-grid{grid-template-columns:1fr}
-  .price-inner{padding:0 20px}
+/* Health bar */
+#health-bar{position:fixed;bottom:0;left:0;right:0;z-index:10;padding:12px 24px;background:linear-gradient(to top,rgba(0,0,0,0.9),transparent)}
+.health-label{font-size:9px;letter-spacing:3px;color:var(--dim);margin-bottom:6px;display:flex;justify-content:space-between}
+.health-track{height:8px;background:#111;border-radius:4px;overflow:hidden}
+.health-fill{height:100%;border-radius:4px;transition:width 0.3s,background 0.3s}
+.combo-display{position:fixed;right:24px;bottom:60px;text-align:right;z-index:10;pointer-events:none}
+.combo-num{font-size:22px;font-weight:900;color:var(--amber);line-height:1;opacity:0;transition:opacity 0.2s}
+.combo-label{font-size:9px;letter-spacing:2px;color:var(--dim)}
+
+/* Screens */
+.screen{position:fixed;inset:0;z-index:20;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;background:rgba(0,0,0,0.92);text-align:center;padding:24px}
+.screen.hidden{display:none}
+
+/* Start screen */
+#start-screen{}
+.screen-title{font-size:clamp(28px,6vw,56px);font-weight:900;color:var(--bright);letter-spacing:4px;margin-bottom:8px;text-shadow:0 0 30px var(--green)}
+.screen-sub{font-size:14px;letter-spacing:2px;color:var(--dim);margin-bottom:48px}
+.screen-desc{max-width:480px;font-size:13px;line-height:1.9;color:var(--silver);margin-bottom:40px}
+.screen-desc span{color:var(--bright)}
+.hs-display{margin-bottom:40px}
+.hs-label{font-size:10px;letter-spacing:3px;color:var(--dim);margin-bottom:6px}
+.hs-score{font-size:36px;font-weight:900;color:var(--green)}
+.btn-start{padding:16px 48px;background:var(--green);color:var(--black);font-family:var(--mono);font-size:16px;font-weight:900;letter-spacing:3px;border:none;border-radius:4px;cursor:pointer;transition:all 0.2s;text-transform:uppercase;pointer-events:all}
+.btn-start:hover{background:var(--bright);transform:translateY(-2px);box-shadow:0 8px 28px rgba(93,184,64,0.5)}
+.btn-back{margin-top:16px;padding:10px 28px;background:none;border:1px solid var(--dim);color:var(--dim);font-family:var(--mono);font-size:12px;letter-spacing:2px;cursor:pointer;transition:all 0.2s;border-radius:4px;pointer-events:all;text-decoration:none;display:inline-block}
+.btn-back:hover{border-color:var(--green);color:var(--green)}
+
+/* Instructions */
+.instructions{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:40px;max-width:560px}
+.inst-item{padding:16px;border:1px solid var(--dim);border-radius:4px}
+.inst-icon{font-size:24px;margin-bottom:8px}
+.inst-text{font-size:11px;letter-spacing:1px;color:var(--silver);line-height:1.5}
+
+/* Gameover screen */
+#gameover-screen .screen-title{color:var(--red);text-shadow:0 0 30px var(--red)}
+.go-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin:24px 0 36px;max-width:500px}
+.go-stat{padding:16px;border:1px solid var(--dim);border-radius:4px}
+.go-stat-num{font-size:28px;font-weight:900;color:var(--bright);line-height:1}
+.go-stat-label{font-size:9px;letter-spacing:2px;color:var(--dim);margin-top:4px}
+.go-hs{font-size:12px;letter-spacing:2px;color:var(--amber);margin-bottom:24px}
+.go-cta{margin-top:24px;padding:16px 28px;border:1px solid var(--dim);border-radius:4px;max-width:380px}
+.go-cta-text{font-size:12px;color:var(--silver);line-height:1.7;margin-bottom:12px}
+.go-cta-btn{display:inline-block;padding:10px 24px;background:var(--green);color:var(--black);font-family:var(--mono);font-size:12px;font-weight:900;letter-spacing:2px;text-decoration:none;border-radius:3px;transition:all 0.2s;pointer-events:all}
+.go-cta-btn:hover{background:var(--bright)}
+
+/* Threat types legend */
+.legend{position:fixed;left:24px;bottom:60px;z-index:10;pointer-events:none}
+.legend-item{display:flex;align-items:center;gap:8px;margin-bottom:4px;font-size:10px;letter-spacing:1px;color:var(--dim)}
+.legend-dot{width:8px;height:8px;border-radius:50%}
+
+
+/* ── Share section ── */
+.share-section{margin-top:20px;padding-top:20px;border-top:1px solid var(--dim)}
+.share-label{font-size:10px;letter-spacing:3px;color:var(--dim);margin-bottom:12px}
+.share-buttons{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:12px}
+.share-btn{padding:8px 16px;border:none;border-radius:4px;font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:1px;cursor:pointer;transition:all 0.2s;display:flex;align-items:center;gap:6px;pointer-events:all}
+.share-btn:hover{transform:translateY(-2px)}
+.share-fb{background:#1877f2;color:#fff}
+.share-li{background:#0a66c2;color:#fff}
+.share-wa{background:#25d366;color:#fff}
+.share-tw{background:#1da1f2;color:#fff}
+.share-copy{background:#333;color:var(--green);border:1px solid var(--dim)}
+.share-copy.copied{background:var(--green);color:var(--black)}
+.share-img-btn{background:none;border:1px solid var(--dim);color:var(--silver);padding:8px 16px;border-radius:4px;font-family:var(--mono);font-size:11px;cursor:pointer;letter-spacing:1px;transition:all 0.2s;pointer-events:all}
+.share-img-btn:hover{border-color:var(--green);color:var(--green)}
+
+/* Leaderboard */
+.leaderboard{margin-top:16px;padding:16px;border:1px solid var(--dim);border-radius:4px;max-width:400px;margin-left:auto;margin-right:auto}
+.lb-title{font-size:10px;letter-spacing:3px;color:var(--dim);margin-bottom:10px}
+.lb-row{display:flex;align-items:center;gap:12px;padding:6px 0;border-bottom:1px solid rgba(93,184,64,0.06);font-size:12px}
+.lb-row:last-child{border-bottom:none}
+.lb-rank{width:20px;color:var(--dim)}
+.lb-rank.gold{color:#ffd600}
+.lb-rank.silver{color:#c0c0c0}
+.lb-rank.bronze{color:#cd7f32}
+.lb-name{flex:1;color:var(--silver)}
+.lb-score{color:var(--green);font-weight:700}
+.lb-level{color:var(--dim);font-size:10px}
+
+@media(max-width:600px){
+  .instructions{grid-template-columns:1fr}
+  .go-stats{grid-template-columns:1fr}
+  .hud-name{display:none}
 }
 </style>
 </head>
 <body>
-<div id="cur"></div><div id="cur-dot"></div>
-<div id="intro">
-  <div id="lock-wrap" onclick="unlockSite()">
-    <div id="lock-glow"></div>
-    <svg id="lock-svg" width="100" height="118" viewBox="0 0 100 118">
-      <path id="lock-shackle" d="M26 58 L26 36 Q26 11 50 11 Q74 11 74 36 L74 58" fill="none" stroke="#1c4010" stroke-width="9" stroke-linecap="round"/>
-      <rect id="lock-body-r" x="12" y="53" width="76" height="60" rx="7" fill="#050f05" stroke="#1c4010" stroke-width="1.5"/>
-      <circle cx="50" cy="79" r="8" fill="#1c4010"/>
-      <path d="M46.5 79 L46.5 95 L53.5 95 L53.5 79" fill="#1c4010"/>
-    </svg>
+<div id="cur"></div>
+<div id="cur-dot"></div>
+
+<canvas id="c"></canvas>
+
+<!-- HUD -->
+<div id="hud">
+  <div class="hud-brand">
+    <div class="hud-mark">OC</div>
+    <div class="hud-name">CYBER DEFENSE</div>
   </div>
-  <div id="lock-label">OPPERMAN CYBERNETIX</div>
-  <div id="lock-sub">CLICK TO UNLOCK · OR WAIT</div>
+  <div class="hud-center">
+    <div class="hud-score" id="score-display">0</div>
+    <div class="hud-score-label">SCORE</div>
+  </div>
+  <div class="hud-right">
+    <div class="hud-level" id="level-display">1</div>
+    <div class="hud-level-label">LEVEL</div>
+  </div>
 </div>
-<button id="skip-btn" onclick="unlockSite()">SKIP →</button>
-<div id="intro-bar"></div>
-<div id="scan-line"></div>
-<canvas id="bg-canvas"></canvas>
-<div id="main">
-  <nav>
-    <a href="#" class="nav-brand">
-      <div class="nav-mark">OC</div>
-      <span class="nav-name">OPPERMAN CYBERNETIX</span>
-    </a>
-    <ul class="nav-links">
-      <li><a href="#services">Services</a></li>
-      <li><a href="#about">About</a></li>
-      <li><a href="#process">Process</a></li><li><a href="#pricing">Pricing</a></li><li><a href="https://blog.opperman.dev" target="_blank">Blog</a></li>
-      <li><a href="https://cv.opperman.dev" target="_blank">CV</a></li>
-      <li><a href="game.html" style="color:var(--amber)!important">▶ Play</a></li>
-      <li><a href="#contact" class="nav-cta">Contact Me</a></li>
-    </ul>
-    <button class="hamburger" id="hamburger" onclick="toggleMenu()">
-      <span></span><span></span><span></span>
-    </button>
-  </nav>
-  <!-- Mobile menu -->
-  <div class="mobile-menu" id="mobile-menu">
-    <a href="#services" onclick="closeMenu()">Services</a>
-    <a href="#about" onclick="closeMenu()">About</a>
-    <a href="#process" onclick="closeMenu()">Process</a>
-    <a href="#pricing" onclick="closeMenu()">Pricing</a>
-    <a href="https://blog.opperman.dev" target="_blank" onclick="closeMenu()">Blog</a>
-    <a href="https://cv.opperman.dev" target="_blank" onclick="closeMenu()">CV</a>
-    <a href="game.html" onclick="closeMenu()" style="color:var(--amber)!important">▶ Play</a>
-    <a href="#contact" class="m-cta" onclick="closeMenu()">Contact Me</a>
-  </div>
-  <section id="hero">
-    <div class="hero-badge"><div class="badge-dot"></div>Robertson, Western Cape · South Africa</div>
-    <h1 class="hero-h1">I protect your<br>business <span>online.</span></h1>
-    <p class="hero-sub">Website security audits, Python automation, and Linux server setup — for businesses that can't afford to get hacked.</p>
-    <p id="hero-tagline"></p>
-    <div class="hero-ctas">
-      <a href="#services" class="btn-p">See What I Do</a>
-      <a href="#contact" class="btn-s">Get in Touch</a>
-    </div>
-    <div class="scroll-ind"><span>Scroll</span><div class="scroll-line"></div></div>
-  </section>
-  <div id="services">
-    <div class="svc-inner">
-      <p class="sec-label reveal">Services</p>
-      <h2 class="sec-title reveal">What I can do for your business</h2>
-      <div class="svc-grid">
-        <div class="svc-card" data-delay="0"><div class="corner c-tl"></div><div class="corner c-tr"></div><div class="corner c-bl"></div><div class="corner c-br"></div><p class="svc-num">01 /</p><svg class="svc-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="4" width="32" height="32" rx="3"/><path d="M12 20l5 5 11-10" stroke-linecap="round" stroke-linejoin="round"/></svg><h3 class="svc-title">Website Security Audits</h3><p class="svc-desc">I scan your website for vulnerabilities — SQL injection, cross-site scripting, authentication weaknesses — and give you a clear report with exactly what to fix.</p><div class="svc-tags"><span class="tag">Vulnerability Scan</span><span class="tag">PDF Report</span><span class="tag">Fix Guidance</span></div></div>
-        <div class="svc-card" data-delay="160"><div class="corner c-tl"></div><div class="corner c-tr"></div><div class="corner c-bl"></div><div class="corner c-br"></div><p class="svc-num">02 /</p><svg class="svc-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="6" y="6" width="28" height="20" rx="2"/><path d="M12 34h16M20 26v8" stroke-linecap="round"/><path d="M12 16l4 4-4 4M22 24h8" stroke-linecap="round"/></svg><h3 class="svc-title">Python Automation</h3><p class="svc-desc">Custom scripts that automate repetitive tasks eating your time. Data processing, report generation, notifications, integrations — if it's manual, it can be automated.</p><div class="svc-tags"><span class="tag">Custom Scripts</span><span class="tag">Integrations</span><span class="tag">Bots</span></div></div>
-        <div class="svc-card" data-delay="320"><div class="corner c-tl"></div><div class="corner c-tr"></div><div class="corner c-bl"></div><div class="corner c-br"></div><p class="svc-num">03 /</p><svg class="svc-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="8" width="34" height="22" rx="2"/><path d="M13 30v4M27 30v4M8 34h24" stroke-linecap="round"/><circle cx="20" cy="19" r="6"/></svg><h3 class="svc-title">Website Development</h3><p class="svc-desc">Fast, professional websites built with security from the start. Clean code, mobile-friendly, and designed to represent your business properly online.</p><div class="svc-tags"><span class="tag">HTML/CSS/JS</span><span class="tag">Flask</span><span class="tag">Mobile-Ready</span></div></div>
-        <div class="svc-card" data-delay="480"><div class="corner c-tl"></div><div class="corner c-tr"></div><div class="corner c-bl"></div><div class="corner c-br"></div><p class="svc-num">04 /</p><svg class="svc-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="4" width="32" height="32" rx="3"/><path d="M12 18h16M12 24h10" stroke-linecap="round"/><path d="M26 22l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg><h3 class="svc-title">Linux & Server Setup</h3><p class="svc-desc">Properly configured and hardened Linux servers. Firewall, Fail2ban, SSH security, automated backups, and monitoring — so your server doesn't become a liability.</p><div class="svc-tags"><span class="tag">Ubuntu</span><span class="tag">Fedora</span><span class="tag">Hardening</span></div></div>
-      </div>
-    </div>
-  </div>
-  <section class="sec">
-    <p class="sec-label reveal">Why Opperman Cybernetix</p>
-    <h2 class="sec-title reveal">Security that actually makes sense</h2>
-    <div class="why-grid">
-      <div class="why-item reveal"><div class="why-icon">🔍</div><h3 class="why-title">Plain language reports</h3><p class="why-desc">No jargon. You get a clear PDF showing what was found, how serious it is, and exactly what to do about it.</p></div>
-      <div class="why-item reveal"><div class="why-icon">⚡</div><h3 class="why-title">Built for small business</h3><p class="why-desc">Enterprise-level security practices at prices that make sense for South African businesses that aren't corporates.</p></div>
-      <div class="why-item reveal"><div class="why-icon">🛠️</div><h3 class="why-title">I use these tools myself</h3><p class="why-desc">Every tool I recommend, every practice I suggest — I run it myself. My systems score 75/100 on independent security audits.</p></div>
-    </div>
-  </section>
-  <div id="stats-bar">
-    <div class="stats-inner">
-      <div><div class="stat-num" data-target="100" data-suffix="%">0</div><div class="stat-label">Client Confidentiality</div></div>
-      <div><div class="stat-num" data-target="4">0</div><div class="stat-label">Core Services</div></div>
-      <div><div class="stat-num" data-target="48" data-suffix="h">0</div><div class="stat-label">Audit Turnaround</div></div>
-      <div><div class="stat-num" data-target="24" data-suffix="/7">0</div><div class="stat-label">Monitoring</div></div>
-    </div>
-  </div>
-  <section id="about">
-    <div class="about-text">
-      <p class="sec-label">About</p>
-      <h2 class="sec-title" style="margin-bottom:24px">Johan Opperman</h2>
-      <div class="sec-div"></div>
-      <p>Based in Robertson, Western Cape, I founded <strong>Opperman Cybernetix</strong> to bring serious security to businesses that can't afford a full-time IT department.</p>
-      <p>My background is practical — wildlife guiding, agriculture, facilities management, heavy machinery. Industries where <strong>systems either work or they don't</strong>. That mindset carries into cybersecurity.</p>
-      <p>I'm actively building my skills and working towards my eJPT certification. <strong>Everything I build, I use myself first.</strong></p>
-      <div class="sk-grid">
-        <div><div class="sk-h"><span class="sk-n">Python</span><span class="sk-p">85%</span></div><div class="sk-bar"><div class="sk-fill" data-width="85"></div></div></div>
-        <div><div class="sk-h"><span class="sk-n">Web Security</span><span class="sk-p">80%</span></div><div class="sk-bar"><div class="sk-fill" data-width="80"></div></div></div>
-        <div><div class="sk-h"><span class="sk-n">Linux Admin</span><span class="sk-p">82%</span></div><div class="sk-bar"><div class="sk-fill" data-width="82"></div></div></div>
-        <div><div class="sk-h"><span class="sk-n">Network Security</span><span class="sk-p">75%</span></div><div class="sk-bar"><div class="sk-fill" data-width="75"></div></div></div>
-        <div><div class="sk-h"><span class="sk-n">Web Development</span><span class="sk-p">78%</span></div><div class="sk-bar"><div class="sk-fill" data-width="78"></div></div></div>
-        <div><div class="sk-h"><span class="sk-n">Automation</span><span class="sk-p">88%</span></div><div class="sk-bar"><div class="sk-fill" data-width="88"></div></div></div>
-      </div>
-    </div>
-    <div class="term-win">
-      <div class="term-bar"><div class="tdot td-r"></div><div class="tdot td-y"></div><div class="tdot td-g"></div><span class="term-title">oppie@cybernetix ~ $</span></div>
-      <div class="term-body">
-        <div><span class="t-pr">[OC] oppie@cybernetix ~ ></span> <span class="t-cm">whoami</span></div>
-        <div class="t-ou">Johan Opperman — Opperman Cybernetix</div>
-        <div class="t-ou">Robertson, Western Cape, South Africa</div><br>
-        <div><span class="t-pr">[OC] oppie@cybernetix ~ ></span> <span class="t-cm">cat services.txt</span></div>
-        <div class="t-gr">✓ Website Security Audits</div>
-        <div class="t-gr">✓ Python Automation</div>
-        <div class="t-gr">✓ Website Development</div>
-        <div class="t-gr">✓ Linux & Server Setup</div><br>
-        <div><span class="t-pr">[OC] oppie@cybernetix ~ ></span> <span class="t-cm">lynis audit --quick</span></div>
-        <div class="t-ou">Hardening index : <span class="t-gr">75 [###############  ]</span></div>
-        <div class="t-ou">Firewall         : <span class="t-gr">Active ✓</span></div>
-        <div class="t-ou">Intrusion detect : <span class="t-gr">Active ✓</span></div><br>
-        <div><span class="t-pr">[OC] oppie@cybernetix ~ ></span> <span class="t-cur"></span></div>
-      </div>
-    </div>
-  </section>
-  
-  <!-- How it Works -->
-  <section class="sec" id="process">
-    <p class="sec-label reveal">The Process</p>
-    <h2 class="sec-title reveal">Simple. Clear. No surprises.</h2>
-    <div class="process-grid">
-      <div class="process-step reveal">
-        <div class="step-num">01</div>
-        <div class="step-line"></div>
-        <h3 class="step-title">Get in Touch</h3>
-        <p class="step-desc">Send me a WhatsApp or email. Tell me what you need — I'll get back to you within a few hours and we'll have a quick call to discuss.</p>
-      </div>
-      <div class="process-step reveal">
-        <div class="step-num">02</div>
-        <div class="step-line"></div>
-        <h3 class="step-title">I Get to Work</h3>
-        <p class="step-desc">Once we agree on scope and payment, I start immediately. No long waiting lists. Most audits and projects are completed within 48 hours.</p>
-      </div>
-      <div class="process-step reveal">
-        <div class="step-num">03</div>
-        <div class="step-line"></div>
-        <h3 class="step-title">You Get Results</h3>
-        <p class="step-desc">You receive a clear PDF report or working deliverable — with plain explanations, no jargon, and specific next steps you can act on immediately.</p>
-      </div>
-    </div>
-  </section>
 
-  <!-- Pricing -->
-  <div id="pricing" style="background:rgba(7,13,7,0.4);padding:100px 0">
-    <div class="price-inner">
-      <p class="sec-label reveal">Pricing</p>
-      <h2 class="sec-title reveal">Transparent pricing.<br>No hidden costs.</h2>
-      <p class="reveal" style="color:#999;font-size:14px;max-width:480px;line-height:1.7;margin-bottom:56px">All prices in ZAR. Payment upfront via EFT or PayPal. Custom quotes available for larger projects.</p>
-      <div class="price-grid">
-        <div class="price-card reveal">
-          <div class="price-badge">Most Popular</div>
-          <div class="price-service">Security Audit</div>
-          <div class="price-amount">R<span class="price-num" data-target="1500">0</span></div>
-          <div class="price-period">per website</div>
-          <ul class="price-features">
-            <li>Full vulnerability scan</li>
-            <li>OWASP Top 10 checks</li>
-            <li>Detailed PDF report</li>
-            <li>Remediation guidance</li>
-            <li>1 follow-up scan included</li>
-          </ul>
-          <a href="https://wa.me/27799231887?text=Hi%20Johan%2C%20I%27m%20interested%20in%20a%20Security%20Audit" class="price-btn">Get Started</a>
-        </div>
-        <div class="price-card reveal">
-          <div class="price-service">Python Automation</div>
-          <div class="price-amount">R<span class="price-num" data-target="800">0</span></div>
-          <div class="price-period">starting from</div>
-          <ul class="price-features">
-            <li>Custom script development</li>
-            <li>API integrations</li>
-            <li>Automated reports & alerts</li>
-            <li>Source code included</li>
-            <li>1 week of support</li>
-          </ul>
-          <a href="https://wa.me/27799231887?text=Hi%20Johan%2C%20I%27m%20interested%20in%20Python%20Automation" class="price-btn">Get Started</a>
-        </div>
-        <div class="price-card reveal">
-          <div class="price-service">Website Development</div>
-          <div class="price-amount">R<span class="price-num" data-target="2500">0</span></div>
-          <div class="price-period">starting from</div>
-          <ul class="price-features">
-            <li>Professional design</li>
-            <li>Mobile responsive</li>
-            <li>Security hardened</li>
-            <li>Domain & hosting guidance</li>
-            <li>2 weeks of support</li>
-          </ul>
-          <a href="https://wa.me/27799231887?text=Hi%20Johan%2C%20I%27m%20interested%20in%20a%20Website" class="price-btn">Get Started</a>
-        </div>
-        <div class="price-card reveal">
-          <div class="price-service">Server Setup & Hardening</div>
-          <div class="price-amount">R<span class="price-num" data-target="1200">0</span></div>
-          <div class="price-period">per server</div>
-          <ul class="price-features">
-            <li>Full Linux configuration</li>
-            <li>Firewall & Fail2ban setup</li>
-            <li>SSH hardening</li>
-            <li>Monitoring & backups</li>
-            <li>Documentation included</li>
-          </ul>
-          <a href="https://wa.me/27799231887?text=Hi%20Johan%2C%20I%27m%20interested%20in%20Server%20Setup" class="price-btn">Get Started</a>
-        </div>
-      </div>
-      <p class="reveal" style="color:#777;font-family:var(--mono);font-size:11px;letter-spacing:1px;margin-top:40px;text-align:center">Need something custom? <a href="mailto:cybernetix88@proton.me" style="color:var(--green);text-decoration:none">Email me</a> and we'll work something out.</p>
-    </div>
-  </div>
-
-  <!-- Testimonials -->
-  <section class="sec" id="testimonials">
-    <p class="sec-label reveal">What People Say</p>
-    <h2 class="sec-title reveal">Built on trust</h2>
-    <div class="testi-grid">
-      <div class="testi-card reveal">
-        <div class="testi-quote">"</div>
-        <p class="testi-text">Johan found vulnerabilities in our website that we had no idea about. The report was clear, the fixes were straightforward, and he was available to answer questions throughout. Highly recommended.</p>
-        <div class="testi-author">
-          <div class="testi-avatar">JM</div>
-          <div><div class="testi-name">— Small Business Owner</div><div class="testi-role">Robertson, Western Cape</div></div>
-        </div>
-      </div>
-      <div class="testi-card reveal">
-        <div class="testi-quote">"</div>
-        <p class="testi-text">He built us a Python script that saves us hours every week. Exactly what we asked for, delivered on time. Will definitely use Opperman Cybernetix again.</p>
-        <div class="testi-author">
-          <div class="testi-avatar">TK</div>
-          <div><div class="testi-name">— Operations Manager</div><div class="testi-role">Cape Town, Western Cape</div></div>
-        </div>
-      </div>
-      <div class="testi-card reveal">
-        <div class="testi-quote">"</div>
-        <p class="testi-text">Our server was a mess before Johan stepped in. Properly configured, secured, and documented. We finally know what's running on our own infrastructure.</p>
-        <div class="testi-author">
-          <div class="testi-avatar">PB</div>
-          <div><div class="testi-name">— IT Coordinator</div><div class="testi-role">Stellenbosch, Western Cape</div></div>
-        </div>
-      </div>
-    </div>
-    <p class="reveal" style="color:#333;font-family:var(--mono);font-size:10px;letter-spacing:2px;text-align:center;margin-top:36px">PLACEHOLDER TESTIMONIALS — REPLACE WITH REAL ONES WHEN AVAILABLE</p>
-  </section>
-
-  <section id="contact">
-    <p class="sec-label reveal">Contact</p>
-    <h2 class="sec-title reveal">Ready to get started?</h2>
-    <p class="reveal" style="color:#999;font-size:14px;max-width:440px;margin:0 auto;line-height:1.7">Whether you need a security audit, a website built, or something automated — get in touch and let's talk.</p>
-    <div class="cc-grid">
-      <a href="mailto:cybernetix88@proton.me" class="cc"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/></svg><span class="cc-l">Email</span><span class="cc-v">cybernetix88@proton.me</span></a>
-      <a href="https://wa.me/27799231887" class="cc"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg><span class="cc-l">WhatsApp</span><span class="cc-v">+27 79 923 1887</span></a>
-      <a href="https://linkedin.com/in/johannes-opperman" class="cc"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="4"/><path d="M7 10v7M7 7v.01M12 10v7M12 13a3 3 0 016 0v4"/></svg><span class="cc-l">LinkedIn</span><span class="cc-v">Johannes Opperman</span></a>
-    </div>
-  </section>
-  <footer>
-    <span>[OC] OPPERMAN CYBERNETIX © 2026</span>
-    <span>BUILDING SECURE SOLUTIONS WITH CODE</span>
-    <span style="display:flex;gap:20px"><a href="https://blog.opperman.dev" target="_blank" style="color:var(--green-dim);text-decoration:none;transition:color 0.2s" onmouseover="this.style.color='#5db840'" onmouseout="this.style.color=''">Blog</a><a href="https://cv.opperman.dev" target="_blank" style="color:var(--green-dim);text-decoration:none;transition:color 0.2s" onmouseover="this.style.color='#5db840'" onmouseout="this.style.color=''">CV</a><span>Robertson, WC · ZA</span></span>
-  </footer>
+<div class="combo-display">
+  <div class="combo-num" id="combo-display">x1</div>
+  <div class="combo-label">COMBO</div>
 </div>
+
+<!-- Health bar -->
+<div id="health-bar">
+  <div class="health-label">
+    <span>FIREWALL INTEGRITY</span>
+    <span id="health-pct">100%</span>
+  </div>
+  <div class="health-track">
+    <div class="health-fill" id="health-fill" style="width:100%;background:var(--green)"></div>
+  </div>
+</div>
+
+<!-- Threat legend -->
+<div class="legend">
+  <div class="legend-item"><div class="legend-dot" style="background:#e53935"></div>DDoS WAVE</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#ff6d00"></div>SQL INJECT</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#ffd600"></div>RANSOMWARE</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#e91e63"></div>ZERO-DAY</div>
+</div>
+
+<!-- Start screen -->
+<div class="screen" id="start-screen">
+  <div class="screen-title">CYBER DEFENSE</div>
+  <div class="screen-sub">OPPERMAN CYBERNETIX — SECURITY SIMULATION</div>
+  <div class="screen-desc">
+    Your firewall is under attack. <span>Click the threats</span> before they breach your server.<br>
+    Miss too many and your firewall falls. <span>How long can you hold?</span>
+  </div>
+  <div class="instructions">
+    <div class="inst-item"><div class="inst-icon">🖱️</div><div class="inst-text">CLICK threats to neutralise them</div></div>
+    <div class="inst-item"><div class="inst-icon">⚡</div><div class="inst-text">BIGGER threats = more damage</div></div>
+    <div class="inst-item"><div class="inst-icon">🔥</div><div class="inst-text">COMBOS multiply your score</div></div>
+  </div>
+  <div class="hs-display">
+    <div class="hs-label">HIGH SCORE</div>
+    <div class="hs-score" id="hs-display">0</div>
+  </div>
+  <button class="btn-start" onclick="startGame()">▶ DEFEND THE NETWORK</button>
+  <a href="index.html" class="btn-back">← Back to Opperman Cybernetix</a>
+</div>
+
+<!-- Game over screen -->
+<div class="screen hidden" id="gameover-screen">
+  <div class="screen-title">BREACH DETECTED</div>
+  <div class="screen-sub">FIREWALL COMPROMISED</div>
+  <div class="go-stats">
+    <div class="go-stat"><div class="go-stat-num" id="go-score">0</div><div class="go-stat-label">FINAL SCORE</div></div>
+    <div class="go-stat"><div class="go-stat-num" id="go-threats">0</div><div class="go-stat-label">THREATS BLOCKED</div></div>
+    <div class="go-stat"><div class="go-stat-num" id="go-level">1</div><div class="go-stat-label">LEVEL REACHED</div></div>
+  </div>
+  <div class="go-hs" id="go-hs-msg"></div>
+  <button class="btn-start" onclick="startGame()" style="background:var(--red);margin-bottom:12px">↺ TRY AGAIN</button>
+  <button class="btn-start" onclick="showStart()" style="background:none;border:1px solid var(--dim);color:var(--dim);margin-bottom:0">MAIN MENU</button>
+  <!-- Share section -->
+  <div class="share-section">
+    <div class="share-label">SHARE YOUR SCORE</div>
+    <div class="share-buttons">
+      <button class="share-btn share-fb" onclick="shareScore('facebook')">f Facebook</button>
+      <button class="share-btn share-li" onclick="shareScore('linkedin')">in LinkedIn</button>
+      <button class="share-btn share-wa" onclick="shareScore('whatsapp')">📱 WhatsApp</button>
+      <button class="share-btn share-tw" onclick="shareScore('twitter')">𝕏 Twitter</button>
+      <button class="share-btn share-copy" id="copy-btn" onclick="copyLink()">🔗 Copy Link</button>
+    </div>
+    <button class="share-img-btn" onclick="downloadScoreCard()">📸 Download Score Card</button>
+  </div>
+
+  <!-- Leaderboard -->
+  <div class="leaderboard" id="leaderboard"></div>
+
+  <div class="go-cta">
+    <div class="go-cta-text">In the real world, your business faces attacks like these every day. Let Opperman Cybernetix audit and protect your systems.</div>
+    <a href="index.html#contact" class="go-cta-btn">GET REAL PROTECTION →</a>
+  </div>
+</div>
+
 <script>
-const cur=document.getElementById('cur'),curDot=document.getElementById('cur-dot');
-let mx=0,my=0,cx=0,cy=0;
-document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;curDot.style.left=mx+'px';curDot.style.top=my+'px'});
-(function ac(){cx+=(mx-cx)*.25;cy+=(my-cy)*.25;cur.style.left=cx+'px';cur.style.top=cy+'px';requestAnimationFrame(ac)})();
-document.querySelectorAll('a,button,.svc-card,#lock-wrap').forEach(el=>{
-  el.addEventListener('mouseenter',()=>{cur.style.width='26px';cur.style.height='26px';cur.style.borderColor='#00ff41'});
-  el.addEventListener('mouseleave',()=>{cur.style.width='18px';cur.style.height='18px';cur.style.borderColor='#5db840'});
-});
-const bgC=document.getElementById('bg-canvas'),bgX=bgC.getContext('2d');
-let bW,bH,bN=[];
-function bgR(){bW=bgC.width=window.innerWidth;bH=bgC.height=window.innerHeight}
-bgR();window.addEventListener('resize',bgR);
-(function(){bN=[];const n=Math.min(70,Math.floor(bW*bH/24000));for(let i=0;i<n;i++)bN.push({x:Math.random()*bW,y:Math.random()*bH,vx:(Math.random()-.5)*.25,vy:(Math.random()-.5)*.25,r:Math.random()*1.8+.8,p:Math.random()*Math.PI*2})})();
-(function bl(){bgX.clearRect(0,0,bW,bH);bN.forEach(n=>{n.x+=n.vx;n.y+=n.vy;n.p+=.015;if(n.x<0||n.x>bW)n.vx*=-1;if(n.y<0||n.y>bH)n.vy*=-1});
-for(let i=0;i<bN.length;i++)for(let j=i+1;j<bN.length;j++){const dx=bN[i].x-bN[j].x,dy=bN[i].y-bN[j].y,d=Math.sqrt(dx*dx+dy*dy);if(d<130){bgX.strokeStyle=`rgba(93,184,64,${(1-d/130)*.1})`;bgX.lineWidth=1;bgX.beginPath();bgX.moveTo(bN[i].x,bN[i].y);bgX.lineTo(bN[j].x,bN[j].y);bgX.stroke()}}
-bN.forEach(n=>{const p=(Math.sin(n.p)+1)/2;bgX.fillStyle=`rgba(93,184,64,${.25+p*.3})`;bgX.beginPath();bgX.arc(n.x,n.y,n.r,0,Math.PI*2);bgX.fill()});requestAnimationFrame(bl)})();
-let opened=false;
-const bar=document.getElementById('intro-bar');
-bar.style.width='100%';
-const autoTimer=setTimeout(()=>unlockSite(),3000);
-function unlockSite(){
-  if(opened)return;opened=true;clearTimeout(autoTimer);
-  document.getElementById('lock-svg').classList.add('lock-open');
-  document.getElementById('lock-body-r').style.stroke='#5db840';
-  document.getElementById('lock-shackle').style.stroke='#5db840';
-  document.getElementById('lock-sub').textContent='ACCESS GRANTED';
-  document.getElementById('lock-sub').style.color='#5db840';
-  document.getElementById('skip-btn').style.display='none';
-  setTimeout(()=>{
-    const sl=document.getElementById('scan-line');sl.style.display='block';
-    let sy=0;const si=setInterval(()=>{sy+=14;sl.style.top=sy+'px';if(sy>window.innerHeight){clearInterval(si);sl.style.display='none'}},16);
-  },400);
-  setTimeout(()=>{
-    const intro=document.getElementById('intro');
-    intro.style.transition='opacity 0.5s';intro.style.opacity='0';
-    setTimeout(()=>{intro.style.display='none';document.getElementById('main').classList.add('visible');document.title='Opperman Cybernetix — Secure Solutions';typeTagline()},500);
-  },1000);
-}
-function typeTagline(){
-  const el=document.getElementById('hero-tagline');
-  const text='BUILDING SECURE SOLUTIONS WITH CODE';
-  let i=0;const iv=setInterval(()=>{el.textContent=text.slice(0,i)+(i<text.length?'█':'');if(i>=text.length){clearInterval(iv);el.textContent=text}i++},55);
-}
-let dropped=false;
-function dropCards(){
-  if(dropped)return;dropped=true;
-  document.querySelectorAll('.svc-card').forEach((card,i)=>{
-    setTimeout(()=>{
-      card.classList.add('drop');
-      setTimeout(()=>{card.style.transition='border-color 0.15s';card.style.borderColor='rgba(93,184,64,0.35)';setTimeout(()=>{card.style.borderColor='';card.style.transition=''},250)},600);
-    },80+i*170);
-  });
-}
-const obs=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{
-    if(!e.isIntersecting)return;
-    if(e.target.id==='services'||e.target.classList.contains('svc-grid'))dropCards();
-    if(e.target.id==='about')document.querySelectorAll('.sk-fill').forEach(b=>{b.style.width=b.dataset.width+'%'});
-    if(e.target.id==='stats-bar'){document.querySelectorAll('.stat-num').forEach(el=>{const tgt=parseInt(el.dataset.target),suf=el.dataset.suffix||'';let c=0;const step=tgt/50;const iv=setInterval(()=>{c=Math.min(c+step,tgt);el.textContent=Math.floor(c)+suf;if(c>=tgt)clearInterval(iv)},20)})}
-    if(e.target.id==='pricing'){document.querySelectorAll('.price-num').forEach(el=>{const tgt=parseInt(el.dataset.target);let c=0;const step=tgt/60;const iv=setInterval(()=>{c=Math.min(c+step,tgt);el.textContent=Math.floor(c).toLocaleString();if(c>=tgt)clearInterval(iv)},16)})}
-    if(e.target.classList.contains('reveal'))e.target.classList.add('shown');
-  });
-},{threshold:0.15});
-document.querySelectorAll('#services,.svc-grid,#about,#stats-bar,#pricing,.reveal').forEach(el=>obs.observe(el));
 
-// Fix anchor links after intro reveals
-function toggleMenu(){
-  document.getElementById('hamburger').classList.toggle('open');
-  document.getElementById('mobile-menu').classList.toggle('open');
+// Polyfill for roundRect
+if(!CanvasRenderingContext2D.prototype.roundRect){
+  CanvasRenderingContext2D.prototype.roundRect=function(x,y,w,h,r){
+    this.beginPath();this.moveTo(x+r,y);this.lineTo(x+w-r,y);
+    this.arcTo(x+w,y,x+w,y+r,r);this.lineTo(x+w,y+h-r);
+    this.arcTo(x+w,y+h,x+w-r,y+h,r);this.lineTo(x+r,y+h);
+    this.arcTo(x,y+h,x,y+h-r,r);this.lineTo(x,y+r);
+    this.arcTo(x,y,x+r,y,r);this.closePath();
+  };
 }
-function closeMenu(){
-  document.getElementById('hamburger').classList.remove('open');
-  document.getElementById('mobile-menu').classList.remove('open');
+
+// ── Cursor ──
+const cur=document.getElementById('cur'),curDot=document.getElementById('cur-dot');
+let mx=window.innerWidth/2,my=window.innerHeight/2;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;curDot.style.left=mx+'px';curDot.style.top=my+'px'});
+(function ac(){cur.style.left=mx+'px';cur.style.top=my+'px';requestAnimationFrame(ac)})();
+
+// ── Canvas ──
+const canvas=document.getElementById('c');
+const ctx=canvas.getContext('2d');
+let W,H;
+function resize(){W=canvas.width=window.innerWidth;H=canvas.height=window.innerHeight}
+resize();window.addEventListener('resize',resize);
+
+// ── Game state ──
+let running=false,score=0,health=100,level=1,combo=1,comboTimer=0;
+let threats=[],particles=[],explosions=[],bgNodes=[];
+let frame=0,spawnTimer=0,spawnRate=90,levelTimer=0;
+let threatsBlocked=0;
+let highScore=parseInt(localStorage.getItem('oc-hs')||'0');
+
+const THREAT_TYPES=[
+  {name:'DDoS',color:'#e53935',size:22,speed:1.2,damage:8,points:10,label:'DDoS'},
+  {name:'SQL',color:'#ff6d00',size:18,speed:1.8,damage:12,points:15,label:'SQL INJECT'},
+  {name:'RANSOM',color:'#ffd600',size:28,speed:0.9,damage:20,points:20,label:'RANSOMWARE'},
+  {name:'ZERO',color:'#e91e63',size:14,speed:2.5,damage:15,points:25,label:'ZERO-DAY'},
+];
+
+// Server position
+function serverX(){return W/2}
+function serverY(){return H-120}
+
+// ── Background nodes ──
+function initBg(){
+  bgNodes=[];
+  for(let i=0;i<40;i++) bgNodes.push({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.2,vy:(Math.random()-.5)*.2,r:Math.random()*1.5+.5,p:Math.random()*Math.PI*2});
 }
-document.querySelectorAll('a[href^="#"]').forEach(a=>{
-  a.addEventListener('click',e=>{
-    const target=document.querySelector(a.getAttribute('href'));
-    if(target){
-      e.preventDefault();
-      setTimeout(()=>{
-        target.scrollIntoView({behavior:'smooth',block:'start'});
-      },50);
-    }
+
+function drawBg(){
+  bgNodes.forEach(n=>{
+    n.x+=n.vx;n.y+=n.vy;n.p+=.01;
+    if(n.x<0||n.x>W)n.vx*=-1;if(n.y<0||n.y>H)n.vy*=-1;
+    const p=(Math.sin(n.p)+1)/2;
+    ctx.fillStyle=`rgba(93,184,64,${.15+p*.15})`;
+    ctx.beginPath();ctx.arc(n.x,n.y,n.r,0,Math.PI*2);ctx.fill();
   });
+  for(let i=0;i<bgNodes.length;i++) for(let j=i+1;j<bgNodes.length;j++){
+    const dx=bgNodes[i].x-bgNodes[j].x,dy=bgNodes[i].y-bgNodes[j].y;
+    const d=Math.sqrt(dx*dx+dy*dy);
+    if(d<120){ctx.strokeStyle=`rgba(93,184,64,${(1-d/120)*.06})`;ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(bgNodes[i].x,bgNodes[i].y);ctx.lineTo(bgNodes[j].x,bgNodes[j].y);ctx.stroke();}
+  }
+}
+
+// ── Server ──
+function drawServer(){
+  const sx=serverX(),sy=serverY();
+  const pulse=(Math.sin(frame/20)+1)/2;
+  const healthColor=health>60?'#5db840':health>30?'#ffb020':'#e53935';
+
+  // Glow
+  const g=ctx.createRadialGradient(sx,sy,0,sx,sy,60+pulse*20);
+  g.addColorStop(0,`rgba(93,184,64,${0.15+pulse*.1})`);
+  g.addColorStop(1,'rgba(0,0,0,0)');
+  ctx.fillStyle=g;ctx.beginPath();ctx.arc(sx,sy,80,0,Math.PI*2);ctx.fill();
+
+  // Server box
+  ctx.strokeStyle=healthColor;ctx.lineWidth=2;
+  ctx.fillStyle=`rgba(5,15,5,0.9)`;
+  ctx.beginPath();ctx.roundRect(sx-40,sy-30,80,60,8);ctx.fill();ctx.stroke();
+
+  // Server lights
+  [[sx-20,sy-10,'#5db840'],[sx-20,sy+5,'#ffb020'],[sx-20,sy+20,health<50?'#e53935':'#5db840']].forEach(([lx,ly,lc])=>{
+    ctx.fillStyle=lc;ctx.beginPath();ctx.arc(lx,ly,4,0,Math.PI*2);ctx.fill();
+    ctx.fillStyle=lc.replace(')',',0.3)').replace('rgb','rgba');ctx.beginPath();ctx.arc(lx,ly,7,0,Math.PI*2);ctx.fill();
+  });
+
+  // Label
+  ctx.fillStyle=healthColor;ctx.font='bold 10px Courier New';ctx.textAlign='center';
+  ctx.fillText('[OC] SERVER',sx,sy+50);
+  ctx.fillStyle='#1c4010';ctx.fillText('OPPERMAN CYBERNETIX',sx,sy+64);
+}
+
+// ── Threat spawning ──
+function spawnThreat(){
+  const type=THREAT_TYPES[Math.floor(Math.random()*THREAT_TYPES.length)];
+  // Spawn from edges
+  const edge=Math.floor(Math.random()*3); // top, left, right
+  let x,y;
+  if(edge===0){x=Math.random()*W;y=-40;}
+  else if(edge===1){x=-40;y=Math.random()*H*0.7;}
+  else{x=W+40;y=Math.random()*H*0.7;}
+
+  const speedMult=1+level*0.15;
+  threats.push({
+    x,y,type,
+    speed:type.speed*speedMult,
+    size:type.size,
+    hp:1+Math.floor(level/4),
+    maxHp:1+Math.floor(level/4),
+    pulse:Math.random()*Math.PI*2,
+    id:Math.random(),
+    glitch:0
+  });
+}
+
+// ── Explosion particles ──
+function spawnExplosion(x,y,color,count=12){
+  for(let i=0;i<count;i++){
+    const a=Math.random()*Math.PI*2;
+    const sp=2+Math.random()*6;
+    particles.push({x,y,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp,life:1,size:Math.random()*4+1,color});
+  }
+}
+
+function spawnHitParticles(x,y){
+  for(let i=0;i<6;i++){
+    const a=Math.random()*Math.PI*2;
+    particles.push({x,y,vx:Math.cos(a)*3,vy:Math.sin(a)*3,life:0.6,size:2,color:'#ffffff'});
+  }
+}
+
+// ── Floating score text ──
+function spawnFloatText(x,y,text,color){
+  explosions.push({x,y,text,color,life:1,vy:-1.5});
+}
+
+// ── Draw threats ──
+function drawThreats(){
+  threats.forEach(t=>{
+    const sx=serverX(),sy=serverY();
+    const dx=sx-t.x,dy=sy-t.y;
+    const dist=Math.sqrt(dx*dx+dy*dy);
+    const nx=dx/dist,ny=dy/dist;
+    t.x+=nx*t.speed;t.y+=ny*t.speed;
+    t.pulse+=0.08;
+    if(t.glitch>0)t.glitch--;
+
+    const pulse=(Math.sin(t.pulse)+1)/2;
+    const sz=t.size*(t.glitch>0?0.9+Math.random()*.2:1);
+
+    // Outer glow
+    const g=ctx.createRadialGradient(t.x,t.y,0,t.x,t.y,sz*2.5);
+    g.addColorStop(0,t.type.color.replace('rgb','rgba').replace(')',',0.4)'));
+    g.addColorStop(1,'rgba(0,0,0,0)');
+    ctx.fillStyle=g;ctx.beginPath();ctx.arc(t.x,t.y,sz*2.5,0,Math.PI*2);ctx.fill();
+
+    // Custom shapes per threat type
+    ctx.fillStyle=t.type.color;
+    ctx.save();
+    ctx.translate(t.x,t.y);
+    if(t.type.name==='DDoS'){
+      // Skull shape
+      ctx.beginPath();ctx.arc(0,-sz*0.2,sz*0.7,0,Math.PI*2);ctx.fill();
+      ctx.fillRect(-sz*0.5,sz*0.1,sz,sz*0.5);
+      ctx.fillStyle=t.type.color==='#e53935'?'rgba(20,0,0,0.8)':'rgba(0,0,0,0.7)';
+      ctx.beginPath();ctx.arc(-sz*0.25,-sz*0.2,sz*0.2,0,Math.PI*2);ctx.fill();
+      ctx.beginPath();ctx.arc(sz*0.25,-sz*0.2,sz*0.2,0,Math.PI*2);ctx.fill();
+    } else if(t.type.name==='SQL'){
+      // Syringe / inject needle
+      ctx.beginPath();
+      ctx.moveTo(0,-sz);ctx.lineTo(sz*0.4,0);ctx.lineTo(sz*0.4,sz*0.6);
+      ctx.lineTo(-sz*0.4,sz*0.6);ctx.lineTo(-sz*0.4,0);ctx.closePath();ctx.fill();
+      ctx.fillStyle='rgba(255,255,255,0.3)';
+      ctx.fillRect(-sz*0.15,-sz*0.6,sz*0.3,sz*0.8);
+      ctx.fillStyle=t.type.color;
+      ctx.beginPath();ctx.moveTo(0,sz*0.6);ctx.lineTo(sz*0.15,sz);ctx.lineTo(-sz*0.15,sz);ctx.fill();
+    } else if(t.type.name==='RANSOM'){
+      // Lock shape
+      ctx.beginPath();ctx.roundRect(-sz*0.6,0,sz*1.2,sz*1.1,sz*0.15);ctx.fill();
+      ctx.strokeStyle=t.type.color;ctx.lineWidth=sz*0.25;
+      ctx.fillStyle='rgba(0,0,0,0)';
+      ctx.beginPath();ctx.arc(0,-sz*0.1,sz*0.45,Math.PI,0);ctx.stroke();
+      ctx.fillStyle=t.type.color;
+      ctx.beginPath();ctx.arc(0,sz*0.4,sz*0.22,0,Math.PI*2);ctx.fill();
+      ctx.fillRect(-sz*0.08,sz*0.4,sz*0.16,sz*0.35);
+    } else if(t.type.name==='ZERO'){
+      // Lightning bolt
+      ctx.beginPath();
+      ctx.moveTo(sz*0.3,-sz);ctx.lineTo(-sz*0.1,-sz*0.1);
+      ctx.lineTo(sz*0.2,-sz*0.1);ctx.lineTo(-sz*0.3,sz);
+      ctx.lineTo(sz*0.1,sz*0.1);ctx.lineTo(-sz*0.2,sz*0.1);
+      ctx.closePath();ctx.fill();
+    }
+    ctx.restore();
+
+    // HP bar
+    if(t.maxHp>1){
+      const bw=sz*3,bh=4;
+      ctx.fillStyle='#111';ctx.fillRect(t.x-bw/2,t.y-sz-10,bw,bh);
+      ctx.fillStyle=t.type.color;ctx.fillRect(t.x-bw/2,t.y-sz-10,bw*(t.hp/t.maxHp),bh);
+    }
+
+    // Label
+    ctx.fillStyle='rgba(255,255,255,0.8)';ctx.font='bold 9px Courier New';ctx.textAlign='center';
+    ctx.fillText(t.type.label,t.x,t.y+sz+14);
+  });
+}
+
+// ── Update ──
+function update(){
+  frame++;spawnTimer++;levelTimer++;comboTimer++;
+
+  // Level up
+  if(levelTimer>600){
+    level++;levelTimer=0;
+    spawnRate=Math.max(20,90-level*8);
+    spawnFloatText(W/2,H/2,'LEVEL '+level+' !!',THREAT_TYPES[Math.floor(Math.random()*THREAT_TYPES.length)].color);
+  }
+
+  // Combo decay
+  if(comboTimer>180){combo=1;updateComboDisplay();}
+
+  // Spawn threats
+  if(spawnTimer>spawnRate){
+    spawnThreat();
+    if(level>3&&Math.random()<0.3) spawnThreat();
+    if(level>6&&Math.random()<0.2) spawnThreat();
+    spawnTimer=0;
+  }
+
+  // Check threats reaching server
+  const sx=serverX(),sy=serverY();
+  threats=threats.filter(t=>{
+    const dx=t.x-sx,dy=t.y-sy;
+    const dist=Math.sqrt(dx*dx+dy*dy);
+    if(dist<50){
+      health=Math.max(0,health-t.type.damage);
+      spawnExplosion(sx,sy,'#e53935',8);
+      spawnFloatText(sx+Math.random()*60-30,sy-20,'-'+t.type.damage+'%','#e53935');
+      updateHealth();
+      // Screen shake
+      canvas.style.transform=`translate(${(Math.random()-0.5)*8}px,${(Math.random()-0.5)*8}px)`;
+      setTimeout(()=>canvas.style.transform='',80);
+      if(health<=0) endGame();
+      return false;
+    }
+    return true;
+  });
+
+  // Update particles
+  particles=particles.filter(p=>{
+    p.life-=0.03;p.x+=p.vx;p.y+=p.vy;p.vx*=0.95;p.vy*=0.95;
+    return p.life>0;
+  });
+
+  // Update float texts
+  explosions=explosions.filter(e=>{
+    e.life-=0.02;e.y+=e.vy;return e.life>0;
+  });
+}
+
+// ── Draw ──
+function draw(){
+  ctx.clearRect(0,0,W,H);
+  ctx.fillStyle='rgba(0,0,0,0.15)';ctx.fillRect(0,0,W,H);
+
+  drawBg();
+  drawServer();
+  drawThreats();
+
+  // Particles
+  particles.forEach(p=>{
+    ctx.globalAlpha=p.life;
+    ctx.fillStyle=p.color;
+    ctx.beginPath();ctx.arc(p.x,p.y,p.size,0,Math.PI*2);ctx.fill();
+  });
+  ctx.globalAlpha=1;
+
+  // Float texts
+  explosions.forEach(e=>{
+    ctx.globalAlpha=e.life;
+    ctx.fillStyle=e.color;
+    ctx.font=`bold ${12+Math.floor(e.life*8)}px Courier New`;
+    ctx.textAlign='center';
+    ctx.fillText(e.text,e.x,e.y);
+  });
+  ctx.globalAlpha=1;
+
+  // Grid overlay
+  ctx.strokeStyle='rgba(93,184,64,0.02)';ctx.lineWidth=1;
+  for(let x=0;x<W;x+=80){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,H);ctx.stroke();}
+  for(let y=0;y<H;y+=80){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke();}
+
+  // Scanlines
+  ctx.fillStyle='rgba(0,0,0,0.04)';
+  for(let y=0;y<H;y+=3)ctx.fillRect(0,y,W,1);
+}
+
+function gameLoop(){
+  if(!running)return;
+  update();draw();
+  requestAnimationFrame(gameLoop);
+}
+
+// ── Click handling ──
+canvas.addEventListener('click',e=>{
+  if(!running)return;
+  const cx2=e.clientX,cy2=e.clientY;
+  let hit=false;
+
+  threats=threats.filter(t=>{
+    const dx=t.x-cx2,dy=t.y-cy2;
+    const dist=Math.sqrt(dx*dx+dy*dy);
+    if(dist<t.size*1.5){
+      t.hp--;
+      if(t.hp<=0){
+        const pts=t.type.points*combo;
+        score+=pts;
+        threatsBlocked++;
+        combo=Math.min(10,combo+1);
+        comboTimer=0;
+        spawnExplosion(t.x,t.y,t.type.color);
+        spawnFloatText(t.x,t.y-20,'+'+pts,t.type.color);
+        updateScore();updateComboDisplay();
+        hit=true;
+        return false;
+      }else{
+        t.glitch=8;
+        spawnHitParticles(t.x,t.y);
+      }
+    }
+    return true;
+  });
+
+  if(!hit){
+    // Miss — small combo reset
+    if(combo>1){combo=Math.max(1,combo-1);updateComboDisplay();}
+  }
 });
+
+// Touch support
+canvas.addEventListener('touchstart',e=>{
+  e.preventDefault();
+  Array.from(e.changedTouches).forEach(t=>{
+    canvas.dispatchEvent(new MouseEvent('click',{clientX:t.clientX,clientY:t.clientY}));
+  });
+},{passive:false});
+
+// ── UI updates ──
+function updateScore(){
+  document.getElementById('score-display').textContent=score.toLocaleString();
+  document.getElementById('level-display').textContent=level;
+}
+
+function updateHealth(){
+  const pct=Math.max(0,health);
+  document.getElementById('health-fill').style.width=pct+'%';
+  document.getElementById('health-pct').textContent=Math.floor(pct)+'%';
+  const color=pct>60?'#5db840':pct>30?'#ffb020':'#e53935';
+  document.getElementById('health-fill').style.background=color;
+}
+
+function updateComboDisplay(){
+  const el=document.getElementById('combo-display');
+  el.textContent='x'+combo;
+  el.style.opacity=combo>1?'1':'0';
+  el.style.color=combo>=5?'#e53935':combo>=3?'#ffb020':'#5db840';
+}
+
+// ── Game flow ──
+function startGame(){
+  score=0;health=100;level=1;combo=1;comboTimer=0;
+  threats=[];particles=[];explosions=[];
+  frame=0;spawnTimer=0;spawnRate=90;levelTimer=0;threatsBlocked=0;
+  running=true;
+  document.getElementById('start-screen').classList.add('hidden');
+  document.getElementById('gameover-screen').classList.add('hidden');
+  document.getElementById('hs-display').textContent=highScore.toLocaleString();
+  initBg();updateScore();updateHealth();updateComboDisplay();
+  gameLoop();
+}
+
+function endGame(){
+  running=false;
+  if(score>highScore){
+    highScore=score;
+    localStorage.setItem('oc-hs',highScore);
+  }
+  document.getElementById('go-score').textContent=score.toLocaleString();
+  document.getElementById('go-threats').textContent=threatsBlocked;
+  document.getElementById('go-level').textContent=level;
+  const isHs=score>=highScore&&score>0;
+  document.getElementById('go-hs-msg').textContent=isHs?'🏆 NEW HIGH SCORE!':'High Score: '+highScore.toLocaleString();
+  document.getElementById('gameover-screen').classList.remove('hidden');
+  saveScore();
+  renderLeaderboard();
+}
+
+function showStart(){
+  running=false;
+  document.getElementById('gameover-screen').classList.add('hidden');
+  document.getElementById('start-screen').classList.remove('hidden');
+  document.getElementById('hs-display').textContent=highScore.toLocaleString();
+}
+
+
+// ── Sharing ──
+const GAME_URL = 'https://opperman.dev/game.html';
+
+function getShareText(){
+  const sc = score.toLocaleString();
+  const lv = level;
+  const tb = threatsBlocked;
+  const scoreBlock = "\n\n🏆 SCORE: " + sc + " | LEVEL: " + lv + " | THREATS BLOCKED: " + tb;
+  const messages = [
+    "🔥 Can you beat my score?! I just defended the network in [OC] Cyber Defense and I dare you to do better. 😤",
+    "💀 The hackers almost got me but I held them off! Think you can last longer? 🛡️",
+    "🎮 Just blocked " + tb + " cyber attacks in [OC] Cyber Defense. Your move. 😏",
+    "⚡ Think you're better at stopping hackers? Prove it. 💪",
+    "🚨 ALERT: I survived the most intense hacker game. Can you last longer? 🎯",
+    "🏆 The servers are safe... for now. Can you keep them that way? 😈",
+    "🔐 Defended against DDoS, ransomware and zero-day attacks. Try beat that — if you dare. 👀",
+  ];
+  const msg = messages[Math.floor(Math.random() * messages.length)];
+  return msg + scoreBlock + "\n\n🎮 Play here: " + GAME_URL + "\n#CyberSecurity #OppermanCybernetix #CyberDefense";
+}
+
+function shareScore(platform){
+  const text = getShareText();
+  const encoded = encodeURIComponent(text);
+  const urls = {
+    facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(GAME_URL)}&quote=${encoded}`,
+    linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(GAME_URL)}&summary=${encoded}`,
+    whatsapp: `https://wa.me/?text=${encoded}`,
+    twitter: `https://twitter.com/intent/tweet?text=${encoded}`
+  };
+  window.open(urls[platform], '_blank', 'width=600,height=500');
+}
+
+function copyLink(){
+  const text = getShareText();
+  navigator.clipboard.writeText(text).then(()=>{
+    const btn = document.getElementById('copy-btn');
+    btn.textContent = '✓ Copied!';
+    btn.classList.add('copied');
+    setTimeout(()=>{btn.textContent='🔗 Copy Link';btn.classList.remove('copied')},2000);
+  });
+}
+
+// ── Score card (canvas image) ──
+function downloadScoreCard(){
+  const c2 = document.createElement('canvas');
+  c2.width = 800; c2.height = 420;
+  const x = c2.getContext('2d');
+
+  // Background
+  x.fillStyle = '#000000';
+  x.fillRect(0,0,800,420);
+
+  // Grid
+  x.strokeStyle = 'rgba(93,184,64,0.06)';x.lineWidth=1;
+  for(let i=0;i<800;i+=40){x.beginPath();x.moveTo(i,0);x.lineTo(i,420);x.stroke();}
+  for(let i=0;i<420;i+=40){x.beginPath();x.moveTo(0,i);x.lineTo(800,i);x.stroke();}
+
+  // Green border
+  x.strokeStyle = '#5db840';x.lineWidth=3;
+  x.strokeRect(16,16,768,388);
+
+  // Corner brackets
+  x.strokeStyle='#5db840';x.lineWidth=2;
+  [[20,20,50,20,20,50],[750,20,780,20,780,50],[20,370,20,400,50,400],[750,400,780,400,780,370]].forEach(([x1,y1,x2,y2,x3,y3])=>{
+    x.beginPath();x.moveTo(x1,y1);x.lineTo(x2,y2);x.lineTo(x3,y3);x.stroke();
+  });
+
+  // OC brand
+  x.fillStyle='#5db840';x.font='bold 14px Courier New';x.textAlign='left';
+  x.fillText('[OC] OPPERMAN CYBERNETIX — CYBER DEFENSE',40,60);
+
+  // Divider
+  x.strokeStyle='rgba(93,184,64,0.3)';x.lineWidth=1;
+  x.beginPath();x.moveTo(40,75);x.lineTo(760,75);x.stroke();
+
+  // Score
+  x.fillStyle='#00ff41';x.font='bold 96px Courier New';x.textAlign='center';
+  x.fillText(score.toLocaleString(),400,210);
+
+  x.fillStyle='rgba(93,184,64,0.4)';x.font='12px Courier New';
+  x.fillText('SCORE',400,235);
+
+  // Stats row
+  const stats=[['LEVEL',level],['THREATS BLOCKED',threatsBlocked],['HIGH SCORE',highScore.toLocaleString()]];
+  stats.forEach((s,i)=>{
+    const sx=160+i*240;
+    x.fillStyle='#5db840';x.font='bold 28px Courier New';x.textAlign='center';
+    x.fillText(s[1],sx,310);
+    x.fillStyle='rgba(93,184,64,0.4)';x.font='10px Courier New';
+    x.fillText(s[0],sx,330);
+  });
+
+  // Divider
+  x.strokeStyle='rgba(93,184,64,0.3)';x.lineWidth=1;
+  x.beginPath();x.moveTo(40,350);x.lineTo(760,350);x.stroke();
+
+  // Challenge text
+  x.fillStyle='rgba(93,184,64,0.5)';x.font='12px Courier New';x.textAlign='center';
+  x.fillText('CAN YOU BEAT MY SCORE? · '+GAME_URL,400,385);
+
+  // Download
+  const link = document.createElement('a');
+  link.download = 'oc-cyber-defense-score.png';
+  link.href = c2.toDataURL();
+  link.click();
+}
+
+// ── Local leaderboard ──
+function saveScore(){
+  const scores = JSON.parse(localStorage.getItem('oc-scores')||'[]');
+  const name = prompt('Enter your name for the leaderboard:','Player');
+  if(!name) return;
+  scores.push({name:name.slice(0,15),score,level,date:new Date().toLocaleDateString()});
+  scores.sort((a,b)=>b.score-a.score);
+  localStorage.setItem('oc-scores', JSON.stringify(scores.slice(0,10)));
+  renderLeaderboard();
+}
+
+function renderLeaderboard(){
+  const scores = JSON.parse(localStorage.getItem('oc-scores')||'[]');
+  const lb = document.getElementById('leaderboard');
+  if(!lb||scores.length===0){if(lb)lb.style.display='none';return;}
+  lb.style.display='block';
+  const ranks=['🥇','🥈','🥉'];
+  lb.innerHTML = `<div class="lb-title">LOCAL LEADERBOARD</div>` +
+    scores.slice(0,5).map((s,i)=>`
+      <div class="lb-row">
+        <span class="lb-rank ${i===0?'gold':i===1?'silver':i===2?'bronze':''}">${ranks[i]||'#'+(i+1)}</span>
+        <span class="lb-name">${s.name}</span>
+        <span class="lb-score">${s.score.toLocaleString()}</span>
+        <span class="lb-level">LVL ${s.level}</span>
+      </div>`).join('');
+}
+
+// Init
+document.getElementById('hs-display').textContent=highScore.toLocaleString();
+initBg();
+// Draw background while on start screen
+(function bgLoop(){
+  if(running)return;
+  ctx.clearRect(0,0,W,H);
+  ctx.fillStyle='rgba(0,0,0,0.1)';ctx.fillRect(0,0,W,H);
+  drawBg();
+  ctx.fillStyle='rgba(0,0,0,0.04)';
+  for(let y=0;y<H;y+=3)ctx.fillRect(0,y,W,1);
+  if(!running)requestAnimationFrame(bgLoop);
+})();
 </script>
 </body>
 </html>
+
