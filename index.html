@@ -116,6 +116,19 @@ nav{position:fixed;top:0;left:0;right:0;padding:0 48px;height:64px;display:flex;
 footer{border-top:1px solid rgba(93,184,64,0.06);padding:32px 48px;display:flex;align-items:center;justify-content:space-between;font-family:var(--mono);font-size:10px;color:rgba(93,184,64,0.4);letter-spacing:1px}
 @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
 .reveal{opacity:0;transform:translateY(20px);transition:opacity 0.5s,transform 0.5s}.reveal.shown{opacity:1;transform:translateY(0)}
+
+/* ── Hamburger menu ── */
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:8px;background:none;border:none}
+.hamburger span{display:block;width:22px;height:2px;background:var(--green);border-radius:2px;transition:all 0.3s}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.mobile-menu{position:fixed;top:64px;left:0;right:0;background:rgba(0,0,0,0.97);border-bottom:1px solid rgba(93,184,64,0.15);z-index:99;padding:16px 0;display:none;flex-direction:column}
+.mobile-menu.open{display:flex}
+.mobile-menu a{padding:14px 24px;font-family:var(--mono);font-size:13px;letter-spacing:2px;color:rgba(93,184,64,0.6);text-decoration:none;text-transform:uppercase;border-bottom:1px solid rgba(93,184,64,0.06);transition:color 0.2s}
+.mobile-menu a:hover{color:var(--green)}
+.mobile-menu .m-cta{background:var(--green);color:var(--black)!important;margin:12px 24px 4px;border-radius:4px;text-align:center;font-weight:700;border:none}
+@media(max-width:900px){.hamburger{display:flex}}
 @media(max-width:900px){nav{padding:0 20px}.nav-links{display:none}.sec{padding:70px 20px}#services{padding:70px 0}.svc-inner{padding:0 20px}#about{grid-template-columns:1fr;padding:70px 20px}.term-win{position:static}.stats-inner{grid-template-columns:1fr 1fr}.why-grid{grid-template-columns:1fr}.cc-grid{grid-template-columns:1fr;max-width:280px}#contact{padding:70px 20px}footer{flex-direction:column;gap:10px;text-align:center;padding:28px 20px}#hero{padding:80px 20px 60px}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:0.01ms!important;transition-duration:0.01ms!important}}
 
@@ -193,7 +206,7 @@ footer{border-top:1px solid rgba(93,184,64,0.06);padding:32px 48px;display:flex;
       <li><a href="#about">About</a></li>
       <li><a href="#process">Process</a></li><li><a href="#pricing">Pricing</a></li><li><a href="https://blog.opperman.dev" target="_blank">Blog</a></li>
       <li><a href="https://cv.opperman.dev" target="_blank">CV</a></li>
-      <li><a href="game.html" style="color:var(--amber)!important">▶ Play</a></li>
+      <li><a href="game.html" target="_blank" style="color:var(--amber)!important">▶ Play</a></li>
       <li><a href="#contact" class="nav-cta">Contact Me</a></li>
     </ul>
     <button class="hamburger" id="hamburger" onclick="toggleMenu()">
@@ -208,7 +221,7 @@ footer{border-top:1px solid rgba(93,184,64,0.06);padding:32px 48px;display:flex;
     <a href="#pricing" onclick="closeMenu()">Pricing</a>
     <a href="https://blog.opperman.dev" target="_blank" onclick="closeMenu()">Blog</a>
     <a href="https://cv.opperman.dev" target="_blank" onclick="closeMenu()">CV</a>
-    <a href="game.html" onclick="closeMenu()" style="color:var(--amber)!important">▶ Play</a>
+    <a href="game.html" target="_blank" onclick="closeMenu()" style="color:var(--amber)!important">▶ Play</a>
     <a href="#contact" class="m-cta" onclick="closeMenu()">Contact Me</a>
   </div>
   <section id="hero">
