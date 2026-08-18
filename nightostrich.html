@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Night Ostrich · Pet &amp; House Sitting — I stay. You relax.</title>
+<meta name="description" content="Night Ostrich — overnight weekend pet and house sitting. I stay in your home while you're away, keeping your pets cared for and your home safe. R250 per night. Local service by Johan Opperman.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Nunito:ital,wght@0,400;0,600;0,700;0,800;1,700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --night:#0A0C12;
+    --night-2:#11141d;
+    --panel:#161a24;
+    --gold:#F5B301;
+    --gold-soft:#FBBF24;
+    --gold-dim:#c9942a;
+    --cream:#F7F4EC;
+    --muted:#a9adb8;
+    --line:rgba(245,179,1,.18);
+    --radius:18px;
+    --shadow:0 20px 50px -20px rgba(0,0,0,.8);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--night);
+    color:var(--cream);
+    font-family:'Nunito',system-ui,sans-serif;
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+  h1,h2,h3,.display{font-family:'Anton',sans-serif;font-weight:400;letter-spacing:.01em;line-height:.98}
+  a{color:inherit}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 22px}
+  .gold{color:var(--gold)}
+
+  /* ---------- top bar ---------- */
+  .topbar{
+    position:sticky;top:0;z-index:50;
+    background:rgba(10,12,18,.82);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .topbar .wrap{display:flex;align-items:center;justify-content:space-between;min-height:62px;gap:12px;flex-wrap:wrap;padding:8px 0}
+  .mainnav{display:flex;align-items:center;gap:2px;flex-wrap:wrap}
+  .mainnav a{font-size:.82rem;font-weight:800;color:var(--muted);text-decoration:none;padding:7px 11px;border-radius:999px;white-space:nowrap;transition:.15s}
+  .mainnav a:hover,.mainnav a:focus-visible{color:var(--gold);outline:none}
+  .mainnav a.active{color:var(--gold);border:1px solid var(--line)}
+  .brand{display:flex;align-items:center;gap:10px;font-family:'Anton',sans-serif;font-size:1.25rem;letter-spacing:.02em}
+  .brand .moon{width:22px;height:22px;flex:0 0 auto}
+  .brand span{color:var(--cream)}
+  .brand span b{color:var(--gold);font-weight:400}
+  .cyberlink{
+    font-size:.82rem;font-weight:700;color:var(--muted);
+    text-decoration:none;padding:8px 14px;border:1px solid var(--line);
+    border-radius:999px;white-space:nowrap;transition:.2s;
+  }
+  .cyberlink:hover,.cyberlink:focus-visible{color:var(--gold);border-color:var(--gold);outline:none}
+
+  /* ---------- night sky ---------- */
+  .sky{position:absolute;inset:0;overflow:hidden;z-index:0;pointer-events:none}
+  .stars{position:absolute;inset:0}
+  .star{position:absolute;background:#fff;border-radius:50%;opacity:.7;animation:tw 4s infinite ease-in-out}
+  @keyframes tw{0%,100%{opacity:.15}50%{opacity:.9}}
+  .moonglow{
+    position:absolute;top:-90px;right:-60px;width:340px;height:340px;border-radius:50%;
+    background:radial-gradient(circle at 35% 35%, rgba(251,191,36,.28), rgba(245,179,1,.10) 45%, transparent 70%);
+    filter:blur(6px);
+  }
+
+  /* ---------- hero ---------- */
+  .hero{position:relative;padding:78px 0 64px;
+    background:
+      radial-gradient(1200px 500px at 80% -10%, rgba(245,179,1,.10), transparent 60%),
+      linear-gradient(180deg,#0A0C12 0%, #0d1018 100%);
+    border-bottom:1px solid var(--line);
+  }
+  .hero .wrap{position:relative;z-index:2}
+  .chip{
+    display:inline-flex;align-items:center;gap:8px;
+    background:var(--gold);color:#12140b;font-weight:800;
+    font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;
+    padding:7px 14px;border-radius:999px;margin-bottom:22px;
+  }
+  .hero h1{font-size:clamp(3.2rem,11vw,6.4rem);color:var(--cream);text-transform:uppercase}
+  .hero h1 em{font-style:normal;color:var(--gold);display:block}
+  .tagline{font-family:'Nunito';font-style:italic;font-weight:700;color:var(--gold-soft);
+    font-size:clamp(1.3rem,4vw,2rem);margin:14px 0 6px}
+  .lead{color:var(--muted);font-size:1.1rem;max-width:520px;margin:16px 0 30px}
+  .lead b{color:var(--cream);font-weight:800}
+
+  .btn-row{display:flex;flex-wrap:wrap;gap:14px;align-items:center}
+  .btn{
+    display:inline-flex;align-items:center;gap:10px;
+    font-weight:800;font-size:1.05rem;text-decoration:none;
+    padding:15px 26px;border-radius:14px;transition:.2s;border:2px solid transparent;
+  }
+  .btn-wa{background:var(--gold);color:#141207;box-shadow:0 10px 30px -10px rgba(245,179,1,.6)}
+  .btn-wa:hover,.btn-wa:focus-visible{transform:translateY(-2px);box-shadow:0 16px 36px -12px rgba(245,179,1,.75);outline:none}
+  .btn-ghost{border-color:var(--line);color:var(--cream)}
+  .btn-ghost:hover,.btn-ghost:focus-visible{border-color:var(--gold);color:var(--gold);outline:none}
+  .btn svg{width:22px;height:22px;flex:0 0 auto}
+
+  /* ---------- section base ---------- */
+  section{position:relative}
+  .block{padding:70px 0}
+  .eyebrow{color:var(--gold);font-weight:800;letter-spacing:.14em;text-transform:uppercase;font-size:.8rem;margin-bottom:12px}
+  .h-sec{font-size:clamp(2rem,5.5vw,3rem);text-transform:uppercase;color:var(--cream);max-width:16ch}
+
+  /* ---------- hook ---------- */
+  .hook{background:var(--night-2);border-bottom:1px solid var(--line)}
+  .hook p.big{font-size:1.35rem;color:var(--cream);max-width:640px;margin-top:18px}
+  .hook p.big b{color:var(--gold)}
+
+  /* ---------- services ---------- */
+  .grid{display:grid;gap:18px;margin-top:38px}
+  .services .grid{grid-template-columns:repeat(2,1fr)}
+  .card{
+    background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+    padding:26px 24px;transition:.22s;
+  }
+  .card:hover{border-color:var(--gold);transform:translateY(-3px)}
+  .card .ic{width:44px;height:44px;border-radius:12px;background:var(--gold);
+    display:flex;align-items:center;justify-content:center;margin-bottom:16px}
+  .card .ic svg{width:24px;height:24px}
+  .card h3{font-family:'Nunito';font-weight:800;font-size:1.15rem;color:var(--gold);margin-bottom:8px;letter-spacing:0}
+  .card p{color:var(--muted);font-size:.98rem}
+
+  /* ---------- pricing ---------- */
+  .pricing{background:linear-gradient(180deg,#0d1018,#0A0C12)}
+  .price-card{
+    background:var(--gold);color:#141207;border-radius:24px;
+    padding:40px;text-align:center;max-width:560px;margin:36px auto 0;
+    box-shadow:0 30px 70px -30px rgba(245,179,1,.5);position:relative;overflow:hidden;
+  }
+  .price-card .lab{font-weight:800;letter-spacing:.08em;text-transform:uppercase;font-size:.85rem;opacity:.75}
+  .price-card .stay{font-family:'Anton';font-size:2rem;text-transform:uppercase;margin:6px 0 2px}
+  .price-card .sub{font-weight:700;opacity:.8;margin-bottom:14px}
+  .price-card .amt{font-family:'Anton';font-size:clamp(3.6rem,14vw,5.4rem);line-height:.9}
+  .price-card .per{display:inline-block;background:#141207;color:var(--gold);font-weight:800;
+    font-size:.8rem;letter-spacing:.08em;padding:6px 12px;border-radius:8px;vertical-align:middle;margin-left:8px}
+  .price-card .note{border-top:2px dashed rgba(20,18,7,.35);margin-top:20px;padding-top:16px;font-weight:700;font-size:.95rem}
+  .price-card .perfect{font-style:italic;font-weight:800;margin-top:6px}
+
+  /* ---------- trust ---------- */
+  .trust{background:var(--night-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .trust .grid{grid-template-columns:repeat(4,1fr);margin-top:10px}
+  .tcell{text-align:center;padding:10px}
+  .tcell .ic{width:52px;height:52px;margin:0 auto 12px;border-radius:14px;border:2px solid var(--gold);
+    display:flex;align-items:center;justify-content:center}
+  .tcell .ic svg{width:26px;height:26px}
+  .tcell h4{font-family:'Nunito';font-weight:800;color:var(--gold);letter-spacing:.06em;text-transform:uppercase;font-size:.9rem;margin-bottom:4px}
+  .tcell p{color:var(--muted);font-size:.86rem}
+
+  /* ---------- cross promo ---------- */
+  .cross{background:var(--night)}
+  .cross-inner{
+    background:linear-gradient(120deg,#12141d,#0d1018);
+    border:1px solid var(--line);border-radius:22px;padding:34px 32px;
+    display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;
+  }
+  .cross-inner .txt h3{font-family:'Nunito';font-weight:800;color:var(--cream);font-size:1.3rem;letter-spacing:0;margin-bottom:6px}
+  .cross-inner .txt p{color:var(--muted);max-width:44ch}
+  .cross-inner .txt b{color:var(--gold)}
+
+  /* ---------- contact ---------- */
+  .contact{background:linear-gradient(180deg,#0A0C12,#0d1018);text-align:center;border-top:1px solid var(--line)}
+  .contact h2{font-size:clamp(2rem,6vw,3.2rem);text-transform:uppercase;color:var(--cream)}
+  .contact .num{font-family:'Anton';font-size:clamp(2.4rem,9vw,3.6rem);color:var(--gold);letter-spacing:.02em;margin:6px 0 4px}
+  .contact .who{color:var(--muted);font-weight:700;margin-bottom:28px}
+  .contact .who b{color:var(--cream)}
+
+  /* ---------- footer ---------- */
+  footer{background:var(--night);border-top:1px solid var(--line);padding:30px 0;text-align:center}
+  footer .band{color:var(--gold);font-family:'Nunito';font-weight:800;font-style:italic;letter-spacing:.02em;font-size:.98rem}
+  footer .sub{color:var(--muted);font-size:.82rem;margin-top:10px}
+  footer .sub a{color:var(--gold);text-decoration:none;font-weight:700}
+  footer .sub a:hover{text-decoration:underline}
+
+  /* ---------- announcement ribbon ---------- */
+  .ribbon{background:linear-gradient(90deg,#F5B301,#FBBF24);color:#141207;text-align:center;
+    font-weight:800;padding:11px 18px;font-size:.95rem}
+  .ribbon b{text-transform:uppercase;letter-spacing:.03em}
+  .ribbon .dot{opacity:.55;margin:0 8px}
+
+  /* ---------- how it works ---------- */
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:38px}
+  .step{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:24px 20px}
+  .step .num{font-family:'Anton';font-size:2.2rem;color:var(--gold);line-height:1}
+  .step h3{font-family:'Nunito';font-weight:800;font-size:1.05rem;color:var(--cream);margin:8px 0 6px;letter-spacing:0}
+  .step p{color:var(--muted);font-size:.92rem}
+
+  /* ---------- testimonials ---------- */
+  .quotes{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:34px}
+  .quote{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:24px}
+  .quote .stars{color:var(--gold);letter-spacing:3px;margin-bottom:10px;font-size:.95rem}
+  .quote p{font-style:italic;color:var(--cream)}
+  .quote .by{color:var(--muted);font-weight:800;font-size:.85rem;margin-top:12px}
+
+  @media (max-width:720px){
+    .steps{grid-template-columns:1fr 1fr}
+    .quotes{grid-template-columns:1fr}
+    .ribbon{font-size:.86rem}
+    .ribbon .dot{display:none}
+    .services .grid{grid-template-columns:1fr}
+    .trust .grid{grid-template-columns:repeat(2,1fr)}
+    .cross-inner{flex-direction:column;align-items:flex-start}
+    .block{padding:56px 0}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .star{animation:none;opacity:.5}
+    html{scroll-behavior:auto}
+    .btn-wa:hover,.card:hover{transform:none}
+  }
+</style>
+</head>
+<body>
+
+<!-- top bar -->
+<header class="topbar">
+  <div class="wrap">
+    <div class="brand">
+      <svg class="moon" viewBox="0 0 24 24" fill="none"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z" fill="#F5B301"/></svg>
+      <span>NIGHT<b>OSTRICH</b></span>
+    </div>
+    <nav class="mainnav">
+      <a href="https://opperman.dev">Cybernetix</a>
+      <a href="https://blog.opperman.dev">Blog</a>
+      <a href="https://cv.opperman.dev">CV</a>
+      <a href="https://opperman.dev/nightostrich/" class="active">Night Ostrich</a>
+    </nav>
+  </div>
+</header>
+
+<div class="ribbon">🎄 <b>Now open for December bookings</b><span class="dot">·</span>Secure your dates early — the festive season fills up fast</div>
+
+<!-- hero -->
+<section class="hero">
+  <div class="sky" id="sky"><div class="moonglow"></div><div class="stars" id="stars"></div></div>
+  <div class="wrap">
+    <span class="chip">🌙 Weekends &amp; full weeks · Local service</span>
+    <h1>Night<em>Ostrich</em></h1>
+    <p class="tagline">Pet &amp; House Sitting — I stay. You relax.</p>
+    <p class="lead">I'll <b>stay over</b> and keep your <b>home safe</b> and your <b>pets cared for</b> while you're away for the weekend.</p>
+    <div class="btn-row">
+      <a class="btn btn-wa" href="https://wa.me/27799231887?text=Hi%20Johan%2C%20I'd%20like%20to%20book%20Night%20Ostrich%20for%20a%20weekend%20stay." target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="#141207"><path d="M12 2a10 10 0 0 0-8.5 15.2L2 22l4.9-1.3A10 10 0 1 0 12 2Zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.6-.6a9.6 9.6 0 0 1-3.7-3.3c-.3-.4-.7-1.1-.7-2.1s.5-1.5.7-1.7c.2-.2.4-.3.6-.3h.4c.2 0 .3 0 .5.4l.7 1.6c.1.1.1.3 0 .5l-.3.4-.3.3c-.1.1-.2.3-.1.5.2.4.7 1.1 1.3 1.6.7.6 1.3.8 1.6.9.2.1.4.1.5-.1l.6-.7c.1-.2.3-.2.5-.1l1.6.8c.2.1.3.2.4.3v.9Z"/></svg>
+        WhatsApp to book
+      </a>
+      <a class="btn btn-ghost" href="#pricing">See pricing</a>
+    </div>
+  </div>
+</section>
+
+<!-- hook -->
+<section class="hook block">
+  <div class="wrap">
+    <div class="eyebrow">🏠 Leaving home?</div>
+    <h2 class="h-sec">Who's watching your home and your pets?</h2>
+    <p class="big">While you're away, I'm there — feeding, walking and giving your pets company, and keeping your home <b>lived-in and secure</b> until you're back.</p>
+  </div>
+</section>
+
+<!-- services -->
+<section class="services block">
+  <div class="wrap">
+    <div class="eyebrow">What I do</div>
+    <h2 class="h-sec">Complete care, in your home</h2>
+    <div class="grid">
+      <div class="card">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="#141207"><path d="M3 12h18v7h-2v-3H5v3H3v-7Zm2-5h14a2 2 0 0 1 2 2v2H3V9a2 2 0 0 1 2-2Z"/></svg></div>
+        <h3>Overnight weekend stays</h3>
+        <p>I stay in your home while you're away — a real presence, not just a drop-in.</p>
+      </div>
+      <div class="card">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="#141207"><path d="M12 21s-7-4.5-9.3-9C1 8.5 3 5 6.5 5c2 0 3.5 1.5 5.5 3 2-1.5 3.5-3 5.5-3C21 5 23 8.5 21.3 12 19 16.5 12 21 12 21Z"/></svg></div>
+        <h3>Pet feeding, care &amp; companionship</h3>
+        <p>Feeding, playtime, walks and lots of love — your pets stay happy in their own space.</p>
+      </div>
+      <div class="card">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="#141207"><path d="M12 2 4 5v6c0 5 3.4 8.5 8 11 4.6-2.5 8-6 8-11V5l-8-3Zm-1 13-3-3 1.4-1.4L11 12.2l4.6-4.6L17 9l-6 6Z"/></svg></div>
+        <h3>Home security &amp; presence</h3>
+        <p>I keep your home lived-in, safe and secure — lights on, eyes on, nothing left empty.</p>
+      </div>
+      <div class="card">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="#141207"><path d="M7 2v2H5a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-2V2h-2v2H9V2H7Zm12 8v9H5v-9h14Z"/></svg></div>
+        <h3>Flexible availability</h3>
+        <p>Weekends every week, plus full weeks when available — so you're covered for a quick trip or a long holiday.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- how it works -->
+<section class="block" style="background:var(--night-2);border-bottom:1px solid var(--line)">
+  <div class="wrap">
+    <div class="eyebrow">Simple &amp; stress-free</div>
+    <h2 class="h-sec">How it works</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="num">01</div>
+        <h3>Get in touch</h3>
+        <p>Message me on WhatsApp with your dates and what pets you have.</p>
+      </div>
+      <div class="step">
+        <div class="num">02</div>
+        <h3>Meet &amp; greet</h3>
+        <p>We meet beforehand so I know your home, your pets and their routine.</p>
+      </div>
+      <div class="step">
+        <div class="num">03</div>
+        <h3>Book &amp; confirm</h3>
+        <p>We agree the dates and sign a short care agreement — everything clear upfront.</p>
+      </div>
+      <div class="step">
+        <div class="num">04</div>
+        <h3>You relax</h3>
+        <p>I stay over, care for your pets and watch your home. You enjoy your trip.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- pricing -->
+<section class="pricing block" id="pricing">
+  <div class="wrap">
+    <div class="eyebrow" style="text-align:center">Simple &amp; affordable</div>
+    <h2 class="h-sec" style="margin:0 auto;text-align:center">Straightforward pricing</h2>
+    <div class="price-card">
+      <div class="lab">🌙 Overnight stay</div>
+      <div class="stay">In your home</div>
+      <div class="amt">R250<span class="per">Per night</span></div>
+      <div class="note">Same nightly rate for weekends or full weeks · book early, especially for December.</div>
+      <div class="perfect">Perfect for weekends away, holidays &amp; long trips ♥</div>
+    </div>
+  </div>
+</section>
+
+<!-- trust -->
+<section class="trust block">
+  <div class="wrap">
+    <div class="grid">
+      <div class="tcell">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#F5B301" stroke-width="2"><path d="M12 2 4 5v6c0 5 3.4 8.5 8 11 4.6-2.5 8-6 8-11V5l-8-3Z"/></svg></div>
+        <h4>Responsible</h4><p>You can count on me.</p>
+      </div>
+      <div class="tcell">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="#F5B301"><path d="M12 21s-7-4.5-9.3-9C1 8.5 3 5 6.5 5c2 0 3.5 1.5 5.5 3 2-1.5 3.5-3 5.5-3C21 5 23 8.5 21.3 12 19 16.5 12 21 12 21Z"/></svg></div>
+        <h4>Respectful</h4><p>I treat your home and pets with care.</p>
+      </div>
+      <div class="tcell">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="#F5B301"><circle cx="6" cy="10" r="2"/><circle cx="12" cy="8" r="2"/><circle cx="18" cy="10" r="2"/><path d="M12 12c-3 0-5 2.5-5 4.5S9 19 12 19s5-.5 5-2.5S15 12 12 12Z"/></svg></div>
+        <h4>Reliable</h4><p>Punctual, honest and dependable.</p>
+      </div>
+      <div class="tcell">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="#F5B301"><path d="m12 2 3 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.9 21l1.2-6.8-5-4.9 6.9-1L12 2Z"/></svg></div>
+        <h4>References</h4><p>Available on request.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- testimonials -->
+<section class="block" style="background:var(--night)">
+  <div class="wrap">
+    <div class="eyebrow">Kind words</div>
+    <h2 class="h-sec">What clients say</h2>
+    <!-- REPLACE these with real reviews as you collect them. Don't publish made-up ones. -->
+    <div class="quotes">
+      <div class="quote">
+        <div class="stars">★★★★★</div>
+        <p>“Add a real client review here — a couple of honest lines about how their pets and home were looked after.”</p>
+        <div class="by">— Client name, area</div>
+      </div>
+      <div class="quote">
+        <div class="stars">★★★★★</div>
+        <p>“A second review goes here. Word-of-mouth from real clients is what earns the next booking.”</p>
+        <div class="by">— Client name, area</div>
+      </div>
+      <div class="quote">
+        <div class="stars">★★★★★</div>
+        <p>“And a third. Ask happy clients for two quick lines after their stay — most are glad to help.”</p>
+        <div class="by">— Client name, area</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- cross promo -->
+<section class="cross block">
+  <div class="wrap">
+    <div class="cross-inner">
+      <div class="txt">
+        <h3>The other half of what I do</h3>
+        <p>By day I'm <b>Opperman Cybernetix</b> — secure websites, automation scripts and web security audits. Same person, same care, different craft.</p>
+      </div>
+      <a class="btn btn-ghost" href="https://opperman.dev">Visit Opperman Cybernetix →</a>
+    </div>
+  </div>
+</section>
+
+<!-- contact -->
+<section class="contact block">
+  <div class="wrap">
+    <div class="eyebrow" style="text-align:center">Call / WhatsApp</div>
+    <h2>Book your weekend</h2>
+    <div class="num">079 923 1887</div>
+    <p class="who">with <b>Johan Opperman</b> · Local service, your area</p>
+    <div class="btn-row" style="justify-content:center">
+      <a class="btn btn-wa" href="https://wa.me/27799231887?text=Hi%20Johan%2C%20I'd%20like%20to%20book%20Night%20Ostrich%20for%20a%20weekend%20stay." target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="#141207"><path d="M12 2a10 10 0 0 0-8.5 15.2L2 22l4.9-1.3A10 10 0 1 0 12 2Zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.6-.6a9.6 9.6 0 0 1-3.7-3.3c-.3-.4-.7-1.1-.7-2.1s.5-1.5.7-1.7c.2-.2.4-.3.6-.3h.4c.2 0 .3 0 .5.4l.7 1.6c.1.1.1.3 0 .5l-.3.4-.3.3c-.1.1-.2.3-.1.5.2.4.7 1.1 1.3 1.6.7.6 1.3.8 1.6.9.2.1.4.1.5-.1l.6-.7c.1-.2.3-.2.5-.1l1.6.8c.2.1.3.2.4.3v.9Z"/></svg>
+        Message me on WhatsApp
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="band">♥ Night Ostrich — watching over your home while you're away ♥</div>
+    <div class="sub">Pet &amp; house sitting · Weekends &amp; weeks · Local · &nbsp;|&nbsp; Also by Johan: <a href="https://opperman.dev">Opperman Cybernetix</a></div>
+  </div>
+</footer>
+
+<script>
+  // twinkling starfield (skipped if reduced-motion)
+  (function(){
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var host = document.getElementById('stars');
+    if(!host) return;
+    var n = reduce ? 26 : 60;
+    for(var i=0;i<n;i++){
+      var s=document.createElement('div');
+      s.className='star';
+      var sz=Math.random()*2+1;
+      s.style.width=sz+'px'; s.style.height=sz+'px';
+      s.style.left=Math.random()*100+'%';
+      s.style.top=Math.random()*70+'%';
+      s.style.animationDelay=(Math.random()*4)+'s';
+      host.appendChild(s);
+    }
+  })();
+</script>
+</body>
+</html>
